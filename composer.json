@@ -1,0 +1,82 @@
+{
+    "name": "qtechnics/qhotspot",
+    "description": "QHotspot freeRADIUS Management Portal for pfSense.",
+    "keywords": ["framework", "laravel", "pfSense", "captive", "freeRADIUS", "portal", "hotspot", "5651"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.6.4",
+        "artesaos/defender": "dev-master@dev",
+        "doctrine/dbal": "2.5.13",
+        "infyomlabs/adminlte-templates": "5.4.x-dev",
+        "infyomlabs/laravel-generator": "5.4.x-dev",
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "^5.4.0",
+        "mcamara/laravel-localization": "1.2.*"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "~2.4",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "neronmoon/scriptsdev": "^0.1.1",
+        "phpunit/phpunit": "~5.7",
+        "xethron/migrations-generator": "^2.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
+        ],
+        "post-autoload-dump": [
+        ]
+    },
+    "extra": {
+        "scripts-dev": {
+            "post-install-cmd": [
+                "@php artisan ide-helper:meta",
+                "@php artisan ide-helper:models",
+                "@php artisan ide-helper:generate"
+            ],
+            "post-update-cmd": [
+                "@php artisan ide-helper:meta",
+                "@php artisan ide-helper:models",
+                "@php artisan ide-helper:generate"
+            ],
+            "post-autoload-dump": [
+                "@php artisan ide-helper:meta",
+                "@php artisan ide-helper:models",
+                "@php artisan ide-helper:generate"
+            ]
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
