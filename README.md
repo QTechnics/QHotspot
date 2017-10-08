@@ -2,13 +2,13 @@
 
 ## Getting Started
 
-**!!! This project is under construction. We are not responsible for any problems that may arise in our system.**
+**!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
 This project aims to set up a Hotspot panel powered by Laravel, MySQL, PDO, freeRADIUS2 on pfSense with a command and make necessary adjustments. 
 
 It also includes the control application of Unifi antennas as an extra.
 
-### Prerequisites
+### Prerequirements
 
 * Fresh installed pfSense 2.3.x or higher
 
@@ -46,8 +46,8 @@ fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 * Web panel integration to MySQL
 * Logging & Signing of the law of the Republic of Turkey No.5651
 * ...[more](https://bitbucket.org/qtechnics/qhotspot/issues?kind=enhancement&kind=proposal)
-## Built With
 
+## Built With
 * [PHPStorm](https://www.jetbrains.com/phpstorm/) - Best PHP IDE
 * [Git](https://git-scm.com/) - Versioning System
 * [GitKraken](https://www.gitkraken.com/) - Best Git GUI

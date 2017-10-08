@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-L_WELCOME="QHotspot kurulumuna hosgeldiniz.\nQHotspot tercihen temiz kurulmus, daha onceden hotspot kurulumu yapilmamis pfSense 2.3 surumu ve uzerinde test edilmistir.\nBu isleme baslamadan once sisteminizin yedegini almayi unutmayin !!\nSisteminize gelebilecek zararlardan hic bir sekilde meshul degiliz.\nKurulum ile ilgili kayitlar ${OUTPUTLOG} dosyasina yazilacaktir.\ncat ${OUTPUTLOG} |more\nkomutu ile kurulum detaylarini inceleyebilirsiniz.\n\nIptal etmek icin Ctrl+C yapin.\n"
+L_WELCOME="Welcome to QHotspot Setup. .\nQHotspot tested in 2.3 version of pfSense without installed of hotspot.\nPlease backup your system before the process !!\nWe are not responsible for any damage caused through use of products or services.\nRecords about setup will be written in  ${OUTPUTLOG} file.\nYou can inspect setup details with cat ${OUTPUTLOG} |more\n command.\n\nUse Ctrl+C to cancel.\n"
 L_QPORT="QHotspot Web panel port"
 L_QROOTPASS="QHotspot MySQL root password"
 L_QRADIUSUSERNAME="QHotspot MySQL radius username"
