@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -26,6 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $locale;
 
     /**
      * Create a new controller instance.
@@ -35,5 +38,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->locale = LaravelLocalization::setLocale() ? "/" . LaravelLocalization::setLocale() : "";
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login')
+            ->with('locale', $this->locale);
+    }
+
+    public function redirectTo()
+    {
+        return $this->locale . $this->redirectTo;
+    }
+
+    public function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+        $this->locale =  $request["language"];
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
     }
 }

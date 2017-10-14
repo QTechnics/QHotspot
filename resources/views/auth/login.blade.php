@@ -7,7 +7,7 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+{{-- TODO : Laravel Mix --}}
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -60,14 +60,9 @@
                 @endif
             </div>
             <div class="form-group">
-                <select class="form-control" name="language" onchange="javascript:location.href = this.value;">
+                <select class="form-control" name="language">
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                        <li>
-                            <option {{ LaravelLocalization::getCurrentLocale() == $localeCode ? 'selected="selected"' : '' }} value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" >{{ $properties['native'] }}</option>
-                            {{--{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
-
-                            </a>
-                        </li>
+                            <option {{ LaravelLocalization::getCurrentLocale() == $localeCode ? 'selected="selected"' : '' }} value="{{ $localeCode }}" >{{ $properties['native'] }}</option>
                     @endforeach
                 </select>
             </div>

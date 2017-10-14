@@ -23,6 +23,7 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-
         Route::get('/', 'HomeController@index');
+        Route::resource("users", "UserController");
+        Route::post('xhr/getAttributes', 'AjaxController@getAttributes');
     });
