@@ -54,9 +54,6 @@ _cronInstall
 # QHotspot Konfigurasyon yukleniyor...
 _qhotspotSettings
 
-# QHotspot Laravel paketleri kuruluyor...
-_qhotspotLaravel
-
 # FreeBSD ve pfSense paketleri deaktif ediliyor...
 _deactiveRepos
 
@@ -124,9 +121,9 @@ _installPackages() {
     ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
     if [ ${ARCH} == "amd64" ]
     then
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-amd64 php56-mysql php56-mysqli php56-pdo_mysql php56-soap php-composer
+    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-amd64 php56-mysql php56-mysqli php56-pdo_mysql php56-soap
     else
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-i386 php56-mysql php56-mysqli php56-pdo_mysql php56-soap php-composer
+    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-i386 php56-mysql php56-mysqli php56-pdo_mysql php56-soap
     fi
     hash -r
     echo ${L_OK} 1>&3
@@ -135,9 +132,8 @@ _installPackages() {
 _cloneQHotspot() {
     echo -n ${L_CLONEQHOTSPOT} 1>&3
     cd /usr/local
-    git clone https://QTechnics@bitbucket.org/qtechnics/qhotspot.git qhotspot
+    git clone -b ghost https://QTechnics@bitbucket.org/qtechnics/qhotspot.git qhotspot
     cd /usr/local/qhotspot
-    mv .env.example .env
     cd /usr/local/qhotspot/install
     echo ${L_OK} 1>&3
 }
@@ -167,9 +163,9 @@ user = root
 password = ${QH_MYSQL_ROOT_PASS}
 host = localhost
 EOF
-    sed -i .bak -e "s/{QH_MYSQL_USER_NAME}/$QH_MYSQL_USER_NAME/g" /usr/local/qhotspot/.env
-    sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /usr/local/qhotspot/.env
-    sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /usr/local/qhotspot/.env
+    sed -i .bak -e "s/{QH_MYSQL_USER_NAME}/$QH_MYSQL_USER_NAME/g" /usr/local/qhotspot/public/inc/db_settings.php
+    sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /usr/local/qhotspot/public/inc/db_settings.php
+    sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /usr/local/qhotspot/public/inc/db_settings.php
 
     sed -i .bak -e "s/{QH_MYSQL_ROOT_PASS}/$QH_MYSQL_ROOT_PASS/g" /usr/local/qhotspot/install/qhotspot.sql
     sed -i .bak -e "s/{QH_MYSQL_USER_NAME}/$QH_MYSQL_USER_NAME/g" /usr/local/qhotspot/install/qhotspot.sql
@@ -248,17 +244,6 @@ _qhotspotSettings() {
     sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /etc/phpshellsessions/qhotspotconfig
     sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /etc/phpshellsessions/qhotspotconfig
     /usr/local/sbin/pfSsh.php playback qhotspotconfig
-    echo ${L_OK} 1>&3
-}
-
-_qhotspotLaravel() {
-    echo -n ${L_QHOTSPOTLARAVEL} 1>&3
-    cd /usr/local/qhotspot
-    echo "suhosin.executor.include.whitelist = phar" >> /usr/local/etc/php.ini
-    sleep 5
-    php -d memory_limit=-1 /usr/local/bin/composer.phar install --no-dev
-    php artisan key:generate
-    php artisan migrate --seed --force
     echo ${L_OK} 1>&3
 }
 

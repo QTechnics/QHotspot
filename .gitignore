@@ -13,3 +13,6 @@ yarn-error.log
 /bower_components
 composer.lock
 */test
+/storage
+/bootstrap
+/tests

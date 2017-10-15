@@ -4,9 +4,7 @@
 
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
-This project aims to set up a Hotspot panel powered by Laravel, MySQL, PDO, freeRADIUS2 on pfSense with a command and make necessary adjustments. 
-
-It also includes the control application of Unifi antennas as an extra.
+**!!!<span style="color:red">This branch only install old ghost panel</span>**
 
 ### Prerequirements
 
@@ -18,7 +16,7 @@ Connect to pfSense console with popular SSH Client on SSH
 And run the following command :
 
 ```
-fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
+fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
 ```
 
 #####Default Configs
@@ -42,8 +40,6 @@ fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 * ~~freeRADIUS2 test user create~~
 * ~~freeRADIUS2 mysql test user create~~
 * ~~pfSense CaptivePortal settings~~
-* Web panel design
-* Web panel integration to MySQL
 * Logging & Signing of the law of the Republic of Turkey No.5651
 * ...[more](https://bitbucket.org/qtechnics/qhotspot/issues?kind=enhancement&kind=proposal)
 
@@ -51,12 +47,6 @@ fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 * [PHPStorm](https://www.jetbrains.com/phpstorm/) - Best PHP IDE
 * [Git](https://git-scm.com/) - Versioning System
 * [GitKraken](https://www.gitkraken.com/) - Best Git GUI
-* [Composer](https://getcomposer.org/) - PHP Package Manager
-* [Larevel](https://laravel.com) - A PHP Framework For Web Artisans
-* [InfyOm AdminLTE](https://github.com/InfyOmLabs/adminlte-templates) - AdminLTE templates for InfyOm Laravel Generator
-* [InfyOm Laravel Generator](https://github.com/InfyOmLabs/laravel-generator) - API, Scaffold, CRUD Laravel Generator
-* [Defender](https://github.com/artesaos/defender) - Defender is a Access Control List (ACL) Solution for Laravel 5.*
-* [Laravel Localization](https://github.com/mcamara/laravel-localization) - Easy localization for Laravel 5.*
 * [pfSense Shell](https://doc.pfsense.org/index.php/Using_the_PHP_pfSense_Shell) - pfSense PHP Shell
 * [unifi-pfSense](https://github.com/gozoinks/unifi-pfsense) - UniFi Controller software on pfSense and other FreeBSD systems
 
