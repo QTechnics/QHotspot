@@ -36,7 +36,8 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
 # Gerekli paketler kuruluyor...
 _installPackages
 touch ${PWD}/restarted.qhs
-echo -n ${L_RESTARTMESSAGE} 1>&3
+echo ${L_RESTARTMESSAGE} 1>&3
+echo ${L_PRESSANYKEY} 1>&3
 read -p ${L_PRESSANYKEY} answer
 /sbin/reboot
 

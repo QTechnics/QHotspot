@@ -505,10 +505,11 @@ Array	### EAP
 	}
 EOF;
 file_put_contents("/usr/local/etc/raddb/eap.conf", $eapconf);
+$lanip = $config["interfaces"]["lan"]["ipaddr"];
 $clientsconf = <<<EOF
 
 client "QHOTSPOT" {
-	ipaddr = 10.0.0.1
+	ipaddr = $lanip
 	proto = udp
 	secret = qhotspot
 	require_message_authenticator = no
