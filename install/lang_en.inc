@@ -24,5 +24,7 @@ L_UNIFICONTROLLER="QHotspot : Installing Unifi Controller...(The process can tak
 L_QUNIFIINSTALL="Are you install Unifi Controller ? (y/N)"
 L_QRESTARTPFSENSE="Do you reboot the system ? (y/N)"
 L_RESTARTPFSENSE="QHotspot : System rebooting..."
+L_RESTARTMESSAGE="PfSense needs to be restarted for further processing. Run the install script again after rebooting."
+L_PRESSANYKEY="Press any key to continue..."
 L_OK=" [ OK ]"
 L_STARTING="QHotpot : Install starting..."

@@ -24,5 +24,7 @@ L_UNIFICONTROLLER="QHotspot : Unifi Controller kuruluyor...(Islem uzun surebilir
 L_QUNIFIINSTALL="Unifi Controller kurulsun mu ? (y/N)"
 L_QRESTARTPFSENSE="Sistem yeniden başlatılsın mı ? (y/N)"
 L_RESTARTPFSENSE="QHotspot : Sistem yeniden baslatiliyor..."
+L_RESTARTMESSAGE="Islemlerin devami icin pfSense'nin yeniden baslatilmasi gerekiyor. Yeniden baslatma sonrasinda tekrar install scriptini calistiriniz."
+L_PRESSANYKEY="Devam etmek icin bir tusa basiniz..."
 L_OK=" [ Tamam ]"
 L_STARTING="QHotpot : Kurulum başlıyor..."

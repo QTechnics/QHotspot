@@ -23,7 +23,7 @@ echo
 _userInputs
 
 echo
-echo ${L_STATING}
+echo ${L_STARTING}
 echo
 
 exec 3>&1 1>>${OUTPUTLOG} 2>&1
@@ -31,8 +31,16 @@ exec 3>&1 1>>${OUTPUTLOG} 2>&1
 # FreeBSD ve pfSense paketleri aktif ediliyor...
 _activeRepos
 
+if [ ! -f ${PWD}/restarted.qhs ]; then
+
 # Gerekli paketler kuruluyor...
 _installPackages
+touch ${PWD}/restarted.qhs
+echo -n ${L_RESTARTMESSAGE} 1>&3
+read -p ${L_PRESSANYKEY} answer
+/sbin/reboot
+
+fi
 
 # QHotspot Repodan cekiliyor...
 _cloneQHotspot
