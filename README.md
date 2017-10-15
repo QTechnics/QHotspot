@@ -14,6 +14,9 @@
 
 Video Tutorial : https://youtu.be/VHfOwj6Ljn0
 
+####Important
+**If you are using 2.3.x, go to System -> Update -> Update Settings and select Firmware Branch "Security / Errata only (2.3.x)".**
+
 Connect to pfSense console with popular SSH Client on SSH 
 And run the following command :
 
@@ -26,7 +29,6 @@ fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
 * Default mysql freeRADIUS username and password both ``qhotspot`` and remote access allowed.
 * Default mysql watchdog cron trigger time is every minute
 * Default freeRADIUS2 test username and password both ``test``
-* Default freeRADIUS2 mysql test username and password both ``testmysql``
 * Default Captive Portal zone name is ``QHOTSPOT``
 * Default Unifi Controller port is ``8080 (http)`` & ``8443 (https)`` 
 
