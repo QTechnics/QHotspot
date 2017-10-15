@@ -14,6 +14,9 @@ It also includes the control application of Unifi antennas as an extra.
 
 ### Installing
 
+####Important
+**If you are using 2.3.x, go to System -> Update -> Update Settings and select Firmware Branch "Security / Errata only (2.3.x)".**
+
 Connect to pfSense console with popular SSH Client on SSH 
 And run the following command :
 
