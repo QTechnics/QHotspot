@@ -4,13 +4,15 @@
 
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
-**!!!<span style="color:red">This branch only install old ghost panel</span>**
+**!!!This branch only install old ghost panel**
 
 ### Prerequirements
 
 * Fresh installed pfSense 2.3.x or higher
 
 ### Installing
+
+Video Tutorial : https://youtu.be/VHfOwj6Ljn0
 
 Connect to pfSense console with popular SSH Client on SSH 
 And run the following command :
