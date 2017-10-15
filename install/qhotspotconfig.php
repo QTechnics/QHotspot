@@ -1,4 +1,3 @@
-<?php
 global $config;
 $config = parse_config(true);
 
