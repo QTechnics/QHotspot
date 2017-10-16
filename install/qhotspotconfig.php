@@ -261,7 +261,7 @@ $freeradiussqlconf = [
 ];
 
 $captiveportal = [
-    "zone" => "QHOTSPOT",
+    "zone" => "{QH_ZONE_NAME}",
     "descr" => "QHotspot Captive Portal",
     "zoneid" => 1,
     "interface" => "lan",

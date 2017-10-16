@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
 main() {
-touch ${PWD}/qhotspot.log
-OUTPUTLOG=${PWD}/qhotspot.log
+START_PATH=${PWD}
+touch ${START_PATH}/qhotspot.log
+OUTPUTLOG=${START_PATH}/qhotspot.log
 
 # Defaults
 QH_LANG_DEFAULT="en"
@@ -11,13 +12,17 @@ QH_MYSQL_ROOT_PASS_DEFAULT="qhotspot"
 QH_MYSQL_USER_NAME_DEFAULT="qhotspot"
 QH_MYSQL_USER_PASS_DEFAULT="qhotspot"
 QH_MYSQL_DBNAME_DEFAULT="qhotspot"
+QH_ZONE_NAME_DEFAULT="QHOTSPOT"
 
 _selectLanguage
 
 printf "\033c"
+
+# Gerekli paketler kuruluyor...
+_installPackages
+
 echo -e ${L_WELCOME}
 echo
-
 
 # User Inputs
 _userInputs
@@ -27,21 +32,6 @@ echo ${L_STARTING}
 echo
 
 exec 3>&1 1>>${OUTPUTLOG} 2>&1
-
-# FreeBSD ve pfSense paketleri aktif ediliyor...
-_activeRepos
-
-if [ ! -f ${PWD}/restarted.qhs ]; then
-
-# Gerekli paketler kuruluyor...
-_installPackages
-touch ${PWD}/restarted.qhs
-echo ${L_RESTARTMESSAGE} 1>&3
-echo ${L_PRESSANYKEY} 1>&3
-read -p ${L_PRESSANYKEY} answer
-/sbin/reboot
-
-fi
 
 # QHotspot Repodan cekiliyor...
 _cloneQHotspot
@@ -66,8 +56,8 @@ _qhotspotSettings
 # QHotspot Laravel paketleri kuruluyor...
 _qhotspotLaravel
 
-# FreeBSD ve pfSense paketleri deaktif ediliyor...
-_deactiveRepos
+# Temizlik
+_clean
 
 if $( YesOrNo "${L_QUNIFIINSTALL}"); then 1>&3
     echo -n ${L_UNIFICONTROLLER} 1>&3
@@ -89,12 +79,10 @@ _selectLanguage() {
             [eE][nN])
             fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_en.inc
             . lang_en.inc
-            rm -rf lang_en.inc
             ;;
             [tT][rR])
             fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_tr.inc
             . lang_tr.inc
-            rm -rf lang_tr.inc
             ;;
     esac
 }
@@ -110,6 +98,8 @@ _selectLanguage() {
     QH_MYSQL_USER_PASS="${QH_MYSQL_USER_PASS:-$QH_MYSQL_USER_PASS_DEFAULT}"
     read -p "$L_QRADIUSDBNAME [$QH_MYSQL_DBNAME_DEFAULT]: " QH_MYSQL_DBNAME
     QH_MYSQL_DBNAME="${QH_MYSQL_DBNAME:-$QH_MYSQL_DBNAME_DEFAULT}"
+    read -p "$L_QZONENAME [$QH_ZONE_NAME_DEFAULT]: " QH_ZONE_NAME
+    QH_ZONE_NAME="${QH_ZONE_NAME:-$QH_ZONE_NAME_DEFAULT}"
 }
 
 _activeRepos() {
@@ -129,6 +119,12 @@ _deactiveRepos() {
 }
 
 _installPackages() {
+
+if [ ! -f ${PWD}/restarted.qhs ]; then
+    exec 3>&1 1>>${OUTPUTLOG} 2>&1
+    # FreeBSD ve pfSense paketleri aktif ediliyor...
+    _activeRepos
+
     echo -n ${L_INSTALLPACKAGES} 1>&3
     ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
     if [ ${ARCH} == "amd64" ]
@@ -139,6 +135,17 @@ _installPackages() {
     fi
     hash -r
     echo ${L_OK} 1>&3
+
+    touch ${PWD}/restarted.qhs
+    echo -e ${L_RESTARTMESSAGE} 1>&3
+    echo ${L_PRESSANYKEY} 1>&3
+    read -p "restart" answer
+    /sbin/reboot
+
+    # FreeBSD ve pfSense paketleri deaktif ediliyor...
+    _deactiveRepos
+
+fi
 }
 
 _cloneQHotspot() {
@@ -186,8 +193,6 @@ EOF
     sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /usr/local/qhotspot/install/qhotspot.sql
 
     mysql --defaults-extra-file=/usr/local/qhotspot/install/client.cnf < /usr/local/qhotspot/install/qhotspot.sql
-    rm -rf /usr/local/qhotspot/install/client.cnf*
-    rm -rf /usr/local/qhotspot/install/qhotspot.sql*
     echo ${L_OK} 1>&3
 
     # MySQL icin watchdog scripti olusturuluyor.
@@ -210,7 +215,6 @@ EOF
 _nginxSettings() {
     echo -n ${L_NGINXINSTALL} 1>&3
     cp /usr/local/qhotspot/install/qhotspot.sh /usr/local/etc/rc.d/qhotspot.sh
-    rm -rf /usr/local/qhotspot/install/qhotspot.sh*
     chmod +x /usr/local/etc/rc.d/qhotspot.sh
     if [ ! -f /etc/rc.conf.local ] || [ $(grep -c qhotspot_enable /etc/rc.conf.local) -eq 0 ]; then
         echo 'qhotspot_enable="YES"' >> /etc/rc.conf.local
@@ -252,10 +256,10 @@ _cronInstall() {
 _qhotspotSettings() {
     echo -n ${L_QHOTSPOTSETTINGS} 1>&3
     cp /usr/local/qhotspot/install/qhotspotconfig.php /etc/phpshellsessions/qhotspotconfig
-    rm -rf /usr/local/qhotspot/install/qhotspotconfig.php
     sed -i .bak -e "s/{QH_MYSQL_USER_NAME}/$QH_MYSQL_USER_NAME/g" /etc/phpshellsessions/qhotspotconfig
     sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /etc/phpshellsessions/qhotspotconfig
     sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /etc/phpshellsessions/qhotspotconfig
+    sed -i .bak -e "s/{QH_ZONE_NAME}/$QH_ZONE_NAME/g" /etc/phpshellsessions/qhotspotconfig
     /usr/local/sbin/pfSsh.php playback qhotspotconfig
     echo ${L_OK} 1>&3
 }
@@ -269,6 +273,14 @@ _qhotspotLaravel() {
     php artisan key:generate
     php artisan migrate --seed --force
     echo ${L_OK} 1>&3
+}
+
+_clean() {
+    rm -rf ${START_PATH}/lang_*
+    rm -rf /usr/local/qhotspot/install/client.cnf*
+    rm -rf /usr/local/qhotspot/install/qhotspot.sql*
+    rm -rf /usr/local/qhotspot/install/qhotspot.sh*
+    rm -rf /usr/local/qhotspot/install/qhotspotconfig.php
 }
 
 YesOrNo() {
