@@ -523,4 +523,48 @@ client "QHOTSPOT" {
 EOF;
 file_put_contents("/usr/local/etc/raddb/clients.conf", $clientsconf);
 
-write_config("QHotspot Radius Settings added.");
+$s_mysql = false;
+foreach ($config['installedpackages']['service'] as $item) {
+    if ('mysql-server' == $item['name']) {
+        $s_mysql = true;
+        break;
+    }
+}
+if ($s_mysql == false) {
+    $config['installedpackages']['service'][] = array(
+        'name' => 'mysql-server',
+        'rcfile' => 'mysql-server.sh',
+        'executable' => 'mysqld',
+        'description' => 'MySQL Database Server'
+    );
+}
+
+$s_qhotspot = false;
+$status_command = <<<EOF
+        \$output=''; exec('/bin/pgrep -anf \'.*QHotspot\.conf.*\'', \$output, \$retval); \$rc=(intval(\$retval) == 0)
+EOF;
+
+foreach ($config['installedpackages']['service'] as $item) {
+    if ('qhotspot' == $item['name']) {
+        $s_qhotspot = true;
+    }
+}
+if ($s_qhotspot == false) {
+    $config['installedpackages']['service'][] = array(
+        'name' => 'qhotspot',
+        'rcfile' => 'qhotspot.sh',
+        'executable' => 'qhotspot',
+        'custom_php_service_status_command' => $status_command,
+        'description' => 'QHotspot Manager Web Console'
+    );
+}
+
+if (!preg_match("/captive_portal_status/", $config['widgets']['sequence'])) {
+$config['widgets']['sequence'] = $config['widgets']['sequence'] . ",captive_portal_status:col2:open";
+}
+
+if (!preg_match("/services_status/", $config['widgets']['sequence'])) {
+$config['widgets']['sequence'] = $config['widgets']['sequence'] . ",services_status:col2:open";
+}
+
+write_config("QHotspot Settings added.");

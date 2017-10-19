@@ -7,7 +7,7 @@ rcvar="qhotspot_enable"
 start_cmd="qhotspot_start"
 stop_cmd="qhotspot_stop"
 
-pidfile="/var/run/${name}.pid"
+pidfile="/var/run/nginx-QHotspot.pid"
 config_file="/usr/local/qhotspot/install/nginx-QHotspot.conf"
 
 load_rc_config ${name}
