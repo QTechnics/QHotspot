@@ -1,6 +1,23 @@
 #!/usr/bin/env sh
 
 main() {
+
+if [ -f /etc/platform ]; then
+	if [ `cat /etc/platform` = "pfSense" ]; then
+		OS_NAME=pfSense
+		OS_VERSION=`cat /etc/version`
+		if [ `cat /etc/version | awk -F. '{print $1"."$2}'` !=  "2.3" ]; then
+            echo "Are you sure this operating system is pfSense 2.3.x? This installation only works in version 2.3.x"
+            exit
+		fi
+		else
+		    echo "Are you sure this operating system is pfSense?"
+	fi
+	else
+        echo "Are you sure this operating system is pfSense?"
+        exit
+fi
+
 START_PATH=${PWD}
 touch ${START_PATH}/qhotspot.log
 OUTPUTLOG=${START_PATH}/qhotspot.log
