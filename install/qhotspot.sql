@@ -21,24 +21,6 @@ SET FOREIGN_KEY_CHECKS=0;
 USE {QH_MYSQL_DBNAME};
 
 -- ----------------------------
--- Table structure for cui
--- ----------------------------
-DROP TABLE IF EXISTS `cui`;
-CREATE TABLE `cui` (
-  `clientipaddress` varchar(15) NOT NULL DEFAULT '',
-  `callingstationid` varchar(50) NOT NULL DEFAULT '',
-  `username` varchar(64) NOT NULL DEFAULT '',
-  `cui` varchar(32) NOT NULL DEFAULT '',
-  `creationdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `lastaccounting` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`username`,`clientipaddress`,`callingstationid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of cui
--- ----------------------------
-
--- ----------------------------
 -- Table structure for ghost_settings
 -- ----------------------------
 DROP TABLE IF EXISTS `ghost_settings`;
@@ -91,10 +73,6 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of log
--- ----------------------------
-
--- ----------------------------
 -- Table structure for nas
 -- ----------------------------
 DROP TABLE IF EXISTS `nas`;
@@ -110,7 +88,7 @@ CREATE TABLE `nas` (
   `description` varchar(200) DEFAULT 'RADIUS Client',
   PRIMARY KEY (`id`),
   KEY `nasname` (`nasname`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of nas
@@ -120,47 +98,43 @@ CREATE TABLE `nas` (
 -- Table structure for radacct
 -- ----------------------------
 DROP TABLE IF EXISTS `radacct`;
-CREATE TABLE `radacct` (
-  `radacctid` bigint(21) NOT NULL AUTO_INCREMENT,
-  `acctsessionid` varchar(64) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `acctuniqueid` varchar(32) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `username` varchar(64) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `groupname` varchar(64) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `realm` varchar(64) CHARACTER SET latin1 DEFAULT '',
-  `nasipaddress` varchar(15) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `nasportid` varchar(15) CHARACTER SET latin1 DEFAULT NULL,
-  `nasporttype` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
-  `acctstarttime` datetime DEFAULT NULL,
-  `acctstoptime` datetime DEFAULT NULL,
-  `acctsessiontime` int(12) DEFAULT NULL,
-  `acctauthentic` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
-  `connectinfo_start` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
-  `connectinfo_stop` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+CREATE TABLE radacct (
+  `radacctid` bigint(21) NOT NULL auto_increment,
+  `acctsessionid` varchar(64) NOT NULL DEFAULT '',
+  `acctuniqueid` varchar(32) NOT NULL DEFAULT '',
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `groupname` varchar(64) NOT NULL DEFAULT '',
+  `realm` varchar(64) DEFAULT '',
+  `nasipaddress` varchar(15) NOT NULL DEFAULT '',
+  `nasportid` varchar(50) DEFAULT NULL,
+  `nasporttype` varchar(32) DEFAULT NULL,
+  `acctstarttime` datetime NULL DEFAULT NULL,
+  `acctupdatetime` datetime NULL DEFAULT NULL,
+  `acctstoptime` datetime NULL DEFAULT NULL,
+  `acctinterval` int(12) DEFAULT NULL,
+  `acctsessiontime` int(12) unsigned DEFAULT NULL,
+  `acctauthentic` varchar(32) DEFAULT NULL,
+  `connectinfo_start` varchar(50) DEFAULT NULL,
+  `connectinfo_stop` varchar(50) DEFAULT NULL,
   `acctinputoctets` bigint(20) DEFAULT NULL,
   `acctoutputoctets` bigint(20) DEFAULT NULL,
-  `calledstationid` varchar(50) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `callingstationid` varchar(50) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `acctterminatecause` varchar(32) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `servicetype` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
-  `framedprotocol` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
-  `framedipaddress` varchar(15) CHARACTER SET latin1 NOT NULL DEFAULT '',
-  `acctstartdelay` int(12) DEFAULT NULL,
-  `acctstopdelay` int(12) DEFAULT NULL,
-  `xascendsessionsvrkey` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
-  PRIMARY KEY (`radacctid`),
-  KEY `username` (`username`),
-  KEY `framedipaddress` (`framedipaddress`),
-  KEY `acctsessionid` (`acctsessionid`),
-  KEY `acctsessiontime` (`acctsessiontime`),
-  KEY `acctuniqueid` (`acctuniqueid`),
-  KEY `acctstarttime` (`acctstarttime`),
-  KEY `acctstoptime` (`acctstoptime`),
-  KEY `nasipaddress` (`nasipaddress`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of radacct
--- ----------------------------
+  `calledstationid` varchar(50) NOT NULL DEFAULT '',
+  `callingstationid` varchar(50) NOT NULL DEFAULT '',
+  `acctterminatecause` varchar(32) NOT NULL DEFAULT '',
+  `servicetype` varchar(32) DEFAULT NULL,
+  `framedprotocol` varchar(32) DEFAULT NULL,
+  `framedipaddress` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (radacctid),
+  UNIQUE KEY acctuniqueid (acctuniqueid),
+  KEY username (username),
+  KEY framedipaddress (framedipaddress),
+  KEY acctsessionid (acctsessionid),
+  KEY acctsessiontime (acctsessiontime),
+  KEY acctstarttime (acctstarttime),
+  KEY acctinterval (acctinterval),
+  KEY acctstoptime (acctstoptime),
+  KEY nasipaddress (nasipaddress)
+) ENGINE = INNODB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for radcheck
@@ -181,12 +155,9 @@ CREATE TABLE `radcheck` (
   `dtarih` longtext,
   PRIMARY KEY (`id`),
   KEY `username` (`username`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=latin5;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of radcheck
--- ----------------------------
-
+INSERT INTO `radcheck` (username, attribute, op, value, tip, telefon, tcno, adsoyad) VALUES ('testmysql','Cleartext-Password',':=','testmysql','1','12345','12345678901','Test User');
 -- ----------------------------
 -- Table structure for radgroupcheck
 -- ----------------------------
@@ -199,11 +170,7 @@ CREATE TABLE `radgroupcheck` (
   `value` varchar(253) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `groupname` (`groupname`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of radgroupcheck
--- ----------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for radgroupreply
@@ -217,35 +184,7 @@ CREATE TABLE `radgroupreply` (
   `value` varchar(253) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `groupname` (`groupname`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of radgroupreply
--- ----------------------------
-
--- ----------------------------
--- Table structure for radippool
--- ----------------------------
-DROP TABLE IF EXISTS `radippool`;
-CREATE TABLE `radippool` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `pool_name` varchar(30) NOT NULL,
-  `framedipaddress` varchar(15) NOT NULL DEFAULT '',
-  `nasipaddress` varchar(15) NOT NULL DEFAULT '',
-  `calledstationid` varchar(30) NOT NULL,
-  `callingstationid` varchar(30) NOT NULL,
-  `expiry_time` datetime DEFAULT NULL,
-  `username` varchar(64) NOT NULL DEFAULT '',
-  `pool_key` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `radippool_poolname_expire` (`pool_name`,`expiry_time`),
-  KEY `framedipaddress` (`framedipaddress`),
-  KEY `radippool_nasip_poolkey_ipaddress` (`nasipaddress`,`pool_key`,`framedipaddress`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of radippool
--- ----------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for radpostauth
@@ -258,11 +197,7 @@ CREATE TABLE `radpostauth` (
   `reply` varchar(32) NOT NULL DEFAULT '',
   `authdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of radpostauth
--- ----------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for radreply
@@ -276,11 +211,7 @@ CREATE TABLE `radreply` (
   `value` varchar(253) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `username` (`username`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of radreply
--- ----------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for radusergroup
@@ -291,29 +222,6 @@ CREATE TABLE `radusergroup` (
   `groupname` varchar(64) NOT NULL DEFAULT '',
   `priority` int(11) NOT NULL DEFAULT '1',
   KEY `username` (`username`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of radusergroup
--- ----------------------------
-
--- ----------------------------
--- Table structure for wimax
--- ----------------------------
-DROP TABLE IF EXISTS `wimax`;
-CREATE TABLE `wimax` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(64) NOT NULL DEFAULT '',
-  `authdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `spi` varchar(16) NOT NULL DEFAULT '',
-  `mipkey` varchar(400) NOT NULL DEFAULT '',
-  `lifetime` int(12) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `username` (`username`),
-  KEY `spi` (`spi`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of wimax
--- ----------------------------
 SET FOREIGN_KEY_CHECKS=1;

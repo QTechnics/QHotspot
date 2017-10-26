@@ -1,4 +1,4 @@
-# QHotspot freeRADIUS2 Management Panel for pfSense 
+# QHotspot freeRADIUS3 Management Panel for pfSense 
 
 ## Getting Started
 
@@ -28,21 +28,23 @@ fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
 * Default mysql root password is ``qhotspot`` and port ``3306``
 * Default mysql freeRADIUS username and password both ``qhotspot`` and remote access allowed.
 * Default mysql watchdog cron trigger time is every minute
-* Default freeRADIUS2 test username and password both ``test``
+* Default freeRADIUS3 test username and password both ``test``
+* Default freeRADIUS3 mysql test username and password both ``testmysql``
 * Default Captive Portal zone name is ``QHOTSPOT``
 * Default Unifi Controller port is ``8080 (http)`` & ``8443 (https)`` 
+* Default Ghost Panel Port is ``81``, username is ``admin`` and password is ``ghost``
 
 
 ## Roadmap
 * ~~Install MySQL 5.6~~
 * ~~Install PHP MySQL Extensions~~
-* ~~Install freeRADIUS2 package~~
+* ~~Install freeRADIUS3 package~~
 * ~~Install cron package~~
-* ~~freeRADIUS2 CA & certificate create~~
-* ~~freeRADIUS2 settings~~
-* ~~freeRADIUS2 EAP settings~~
-* ~~freeRADIUS2 test user create~~
-* ~~freeRADIUS2 mysql test user create~~
+* ~~freeRADIUS3 CA & certificate create~~
+* ~~freeRADIUS3 settings~~
+* ~~freeRADIUS3 EAP settings~~
+* ~~freeRADIUS3 test user create~~
+* ~~freeRADIUS3 mysql test user create~~
 * ~~pfSense CaptivePortal settings~~
 * Logging & Signing of the law of the Republic of Turkey No.5651
 * ...[more](https://bitbucket.org/qtechnics/qhotspot/issues?kind=enhancement&kind=proposal)

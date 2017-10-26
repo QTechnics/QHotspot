@@ -6,8 +6,12 @@ if [ -f /etc/platform ]; then
 	if [ `cat /etc/platform` = "pfSense" ]; then
 		OS_NAME=pfSense
 		OS_VERSION=`cat /etc/version`
-		if [ `cat /etc/version | awk -F. '{print $1"."$2}'` !=  "2.3" ]; then
-            echo "Are you sure this operating system is pfSense 2.3.x? This installation only works in version 2.3.x"
+		OS_VERSION_MAJOR=`cat /etc/version | awk -F. '{print $1}'`
+		OS_VERSION_MINOR=`cat /etc/version | awk -F. '{print $2}'`
+		OS_VERSION_REVISION=`cat /etc/version | awk -F. '{print $3}'`
+
+		if [ ${OS_VERSION_MAJOR} != "2" ] || [ ${OS_VERSION_MINOR} -lt "3" ]; then
+            echo "Are you sure this operating system is pfSense 2.3.x or later? This installation only works in version 2.3.x or later"
             exit
 		fi
 		else
@@ -119,7 +123,11 @@ _selectLanguage() {
 _activeRepos() {
     echo -n ${L_ACTIVEREPOS} 1>&3
     tar xv -C / -f /usr/local/share/pfSense/base.txz ./usr/bin/install
-    sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/etc/pkg/repos/pfSense.conf
+    if [ ${OS_VERSION_MINOR} -lt "4" ]; then
+        sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/etc/pkg/repos/pfSense.conf
+    else
+        sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf
+    fi
     sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/etc/pkg/repos/FreeBSD.conf
     env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg update
     echo ${L_OK} 1>&3
@@ -127,7 +135,11 @@ _activeRepos() {
 
 _deactiveRepos() {
     echo -n ${L_DEACTIVEREPOS} 1>&3
-    sed -i .bak -e 's/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g' /usr/local/etc/pkg/repos/pfSense.conf
+    if [ ${OS_VERSION_MINOR} -lt "4" ]; then
+        sed -i .bak -e "s/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g" /usr/local/etc/pkg/repos/pfSense.conf
+    else
+        sed -i .bak -e "s/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf
+    fi
     sed -i .bak -e 's/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g' /usr/local/etc/pkg/repos/FreeBSD.conf
     echo ${L_OK} 1>&3
 }
@@ -240,10 +252,16 @@ _radiusInstall() {
     /usr/local/sbin/pfSsh.php playback listpkg | grep "freeradius2"
     if [ $? == 0 ]
     then
+    echo -n ${L_RADIUS2ALREADYINSTALLED} 1>&3
+    /usr/local/sbin/pfSsh.php playback uninstallpkg "freeradius2"
+    fi
+    /usr/local/sbin/pfSsh.php playback listpkg | grep "freeradius3"
+    if [ $? == 0 ]
+    then
     echo -n ${L_RADIUSALREADYINSTALLED} 1>&3
     else
     echo -n ${L_RADIUSINSTALL} 1>&3
-    /usr/local/sbin/pfSsh.php playback installpkg "freeradius2"
+    /usr/local/sbin/pfSsh.php playback installpkg "freeradius3"
     hash -r
     fi
     if [ ! -f /etc/rc.conf.local ] || [ $(grep -c radiusd_enable /etc/rc.conf.local) -eq 0 ]; then

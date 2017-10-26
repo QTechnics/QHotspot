@@ -218,15 +218,15 @@ Eğer biz yeni bir kullanıcı oluşturmak istersek aşağıdaki şekilde RadChe
   </tr>
   <tr>
     <td>samet</td>
-    <td>User-Password</td>
-    <td>==</td>
+    <td>Cleartext-Password</td>
+    <td>:=</td>
     <td>şifre</td>
   </tr>
 </table>
 </b>
 <p>&nbsp;</p>
 <p><b>username  		attribute		    op		value<br />
-  samet			User-Password		==		şifre<br />
+  samet			Cleartext-Password		:=		şifre<br />
   
   
   Username : Bir kullanıcı ismi belirledik.<br />
@@ -413,8 +413,8 @@ require_once ("inc/header.php");
 		 
 
 		<input type="hidden" name="tip" value="1"   class="inp-form" />
-         <input type="hidden" name="attribute" value="User-Password"   class="inp-form" />
-        <input type="hidden" name="op" value="=="   class="inp-form" />
+         <input type="hidden" name="attribute" value="Cleartext-Password"   class="inp-form" />
+        <input type="hidden" name="op" value=":="   class="inp-form" />
 		<tr>
 		
 		

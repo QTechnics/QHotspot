@@ -269,7 +269,7 @@ $(document).pngFix( );
 				<?php
 				
 $ara = $_POST['ara'];
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM radcheck WHERE  username like '$ara' and attribute='User-Password' ");   
+$bul = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM radcheck WHERE  username like '$ara' and attribute='Cleartext-Password' ");
 $bulunan=0;
 while ($goster = mysqli_fetch_array($bul)) {
 $bulunan++;

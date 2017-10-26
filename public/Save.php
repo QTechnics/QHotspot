@@ -186,7 +186,7 @@ if($id == "Password"){
 	$yenizaman = str_replace($eski,$yeni,$dizi[1]);
 	$zamanedit = $dizi[0]." ".$yenizaman." ".$dizi[2];
 
-	$sql = "insert into radcheck (username,attribute,op,value,adsoyad,tcno,telefon,tip) values ('$uname','User-Password','==','$value','$adsoyad','$tcno','$telefon','1')";
+	$sql = "insert into radcheck (username,attribute,op,value,adsoyad,tcno,telefon,tip) values ('$uname','Cleartext-Password',':=','$value','$adsoyad','$tcno','$telefon','1')";
 	if (mysqli_query($GLOBALS["___mysqli_ston"], $sql)){ 
 		header("location:Message.php?id=Basarili");
 	}
@@ -202,7 +202,7 @@ if($id == "Password"){
 	$tcno = $_POST["tcno"];
 	$telefon = $_POST["telefon"];
 
-	$sql = "insert into radcheck (username,attribute,op,value,adsoyad,tcno,telefon,tip) values ('$uname','User-Password','==','$value','$adsoyad','$tcno','$telefon','1')";
+	$sql = "insert into radcheck (username,attribute,op,value,adsoyad,tcno,telefon,tip) values ('$uname','Cleartext-Password',':=','$value','$adsoyad','$tcno','$telefon','1')";
 	if (mysqli_query($GLOBALS["___mysqli_ston"], $sql)){
 		header("location:Message.php?id=Basarili");
 	}
