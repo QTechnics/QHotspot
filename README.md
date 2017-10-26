@@ -1,10 +1,10 @@
-# QHotspot freeRADIUS2 Management Panel for pfSense 
+# QHotspot freeRADIUS3 Management Panel for pfSense 
 
 ## Getting Started
 
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
-This project aims to set up a Hotspot panel powered by Laravel, MySQL, PDO, freeRADIUS2 on pfSense with a command and make necessary adjustments. 
+This project aims to set up a Hotspot panel powered by Laravel, MySQL, PDO, freeRADIUS3 on pfSense with a command and make necessary adjustments. 
 
 It also includes the control application of Unifi antennas as an extra.
 
@@ -28,8 +28,8 @@ fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 * Default mysql root password is ``qhotspot`` and port ``3306``
 * Default mysql freeRADIUS username and password both ``qhotspot`` and remote access allowed.
 * Default mysql watchdog cron trigger time is every minute
-* Default freeRADIUS2 test username and password both ``test``
-* Default freeRADIUS2 mysql test username and password both ``testmysql``
+* Default freeRADIUS3 test username and password both ``test``
+* Default freeRADIUS3 mysql test username and password both ``testmysql``
 * Default Captive Portal zone name is ``QHOTSPOT``
 * Default Unifi Controller port is ``8080 (http)`` & ``8443 (https)`` 
 
@@ -37,13 +37,13 @@ fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 ## Roadmap
 * ~~Install MySQL 5.6~~
 * ~~Install PHP MySQL Extensions~~
-* ~~Install freeRADIUS2 package~~
+* ~~Install freeRADIUS3 package~~
 * ~~Install cron package~~
-* ~~freeRADIUS2 CA & certificate create~~
-* ~~freeRADIUS2 settings~~
-* ~~freeRADIUS2 EAP settings~~
-* ~~freeRADIUS2 test user create~~
-* ~~freeRADIUS2 mysql test user create~~
+* ~~freeRADIUS3 CA & certificate create~~
+* ~~freeRADIUS3 settings~~
+* ~~freeRADIUS3 EAP settings~~
+* ~~freeRADIUS3 test user create~~
+* ~~freeRADIUS3 mysql test user create~~
 * ~~pfSense CaptivePortal settings~~
 * Web panel design
 * Web panel integration to MySQL
