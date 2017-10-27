@@ -20,6 +20,8 @@ It also includes the control application of Unifi antennas as an extra.
 Connect to pfSense console with popular SSH Client on SSH 
 And run the following command :
 
+**Note : root user must be logged in. Not admin.**
+
 ```
 fetch -o install.sh https://goo.gl/yzXRnL && sh install.sh
 ```
