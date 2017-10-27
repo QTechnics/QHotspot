@@ -2,6 +2,11 @@
 
 main() {
 
+if [ ${USER} != "root" ]; then
+        echo "Please login \"root\" user. Not \"admin\" user !"
+        exit
+fi
+
 if [ -f /etc/platform ]; then
 	if [ `cat /etc/platform` = "pfSense" ]; then
 		OS_NAME=pfSense

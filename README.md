@@ -1,4 +1,4 @@
-# QHotspot freeRADIUS3 Management Panel for pfSense 
+# QHotspot freeRADIUS3 Management Panel for pfSense (Ghost Edition)
 
 ## Getting Started
 
@@ -19,6 +19,8 @@ Video Tutorial : https://youtu.be/VHfOwj6Ljn0
 
 Connect to pfSense console with popular SSH Client on SSH 
 And run the following command :
+
+**Note : root user must be logged in. Not admin.**
 
 ```
 fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
