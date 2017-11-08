@@ -1,10 +1,12 @@
 # QHotspot freeRADIUS3 Management Panel for pfSense (Ghost Edition)
-
+![QHotspot](QHotspot-logo.png)
 ## Getting Started
+
+* Türkçe açıklamalar için lütfen [tıklayınız](README-tr.md).
 
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
-**!!!This branch only install old ghost panel**
+**!!!This branch only install old ghost panel. For the new QHotspot panel, please use [this branch](https://bitbucket.org/qtechnics/qhotspot/src/).**
 
 ### Prerequirements
 
@@ -72,6 +74,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Resources & Special Thanks
 
+* [Fatih ATA - Logo Creator](mailto:fatihata@gmail.com)
 * [Serdar Bayram - Blog](https://www.serdarbayram.net/)
 * [Samet Yılmaz - Blog](http://sametyilmaz.com.tr/)
 * [pfSense Forums](https://forum.pfsense.org)
