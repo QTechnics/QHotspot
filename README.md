@@ -1,8 +1,12 @@
 # QHotspot freeRADIUS3 Management Panel for pfSense 
-
+![QHotspot](QHotspot-logo.png)
 ## Getting Started
 
+* Türkçe açıklamalar için lütfen [tıklayınız](README-tr.md).
+
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
+
+**This installation is a new panel installation. For the old ghost panel, please use [this branch](https://bitbucket.org/qtechnics/qhotspot/src/ghost/).
 
 This project aims to set up a Hotspot panel powered by Laravel, MySQL, PDO, freeRADIUS3 on pfSense with a command and make necessary adjustments. 
 
@@ -79,6 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Resources & Special Thanks
 
+* [Fatih ATA - Logo Creator](mailto:fatihata@gmail.com)
 * [Serdar Bayram - Blog](https://www.serdarbayram.net/)
 * [Samet Yılmaz - Blog](http://sametyilmaz.com.tr/)
 * [pfSense Forums](https://forum.pfsense.org)
