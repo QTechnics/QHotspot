@@ -213,6 +213,7 @@ user = root
 password = ${QH_MYSQL_ROOT_PASS}
 host = localhost
 EOF
+    cp /usr/local/qhotspot/public/inc/db_settings.php.example /usr/local/qhotspot/public/inc/db_settings.php
     sed -i .bak -e "s/{QH_MYSQL_USER_NAME}/$QH_MYSQL_USER_NAME/g" /usr/local/qhotspot/public/inc/db_settings.php
     sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /usr/local/qhotspot/public/inc/db_settings.php
     sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /usr/local/qhotspot/public/inc/db_settings.php
