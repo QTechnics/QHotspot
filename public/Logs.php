@@ -847,7 +847,9 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
                                     // $ksayisi = mysql_num_rows (mysql_query("select id from radpostauth"));
                                     // ylmz, yukaridakinin yerine asagidaki yontem daha hizli sonuc verecektir
                                     $countquery = mysqli_query($GLOBALS["___mysqli_ston"], "select count(*) as 'reccount' from radpostauth" . $wheretxt);
-                                    $ksayisi = mysql_result($countquery, 0, 'reccount');
+                                    $countquery->data_seek(0);
+                                    $data = $countquery->fetch_array();
+                                    $ksayisi = $data["reccount"];
                                     // *****************************************************************
 
 
