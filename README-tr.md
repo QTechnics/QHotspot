@@ -14,7 +14,7 @@
 
 ### Kurulum
 
-Kurulum videosu : https://youtu.be/VHfOwj6Ljn0
+Kurulum videosu : https://youtu.be/Fl9omolHmz0
 
 ####Önemli
 **Eğer pfSense'nin 2.3.x sürümünü kullanıyorsanız System -> Update -> Update Settings altında bulunan Firmware Branch alanında "Security / Errata only (2.3.x)" seçiniz.**
