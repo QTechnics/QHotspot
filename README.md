@@ -14,7 +14,7 @@
 
 ### Installing
 
-Video Tutorial : https://youtu.be/VHfOwj6Ljn0
+Video Tutorial : https://youtu.be/Fl9omolHmz0
 
 ####Important
 **If you are using 2.3.x, go to System -> Update -> Update Settings and select Firmware Branch "Security / Errata only (2.3.x)".**
