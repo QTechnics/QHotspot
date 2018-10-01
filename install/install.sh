@@ -160,9 +160,9 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
     ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
     if [ ${ARCH} == "amd64" ]
     then
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-amd64 php56-mysql php56-mysqli php56-pdo_mysql php56-soap
+    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-amd64 php72-mysqli php72-pdo_mysql php72-soap
     else
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-i386 php56-mysql php56-mysqli php56-pdo_mysql php56-soap
+    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-i386 php72-mysqli php72-pdo_mysql php72-soap
     fi
     hash -r
     echo ${L_OK} 1>&3

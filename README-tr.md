@@ -4,13 +4,15 @@
 
 * For English [use this file](README.md).
 
+**!!! Bu branch minumum pfSense 2.4.4 gerektirir.
+
 **!!! Bu proje daha yapım aşamasındadır. Sisteminize gelebilecek zararlardan sorumlu değiliz.**
 
 **!!!Bu brnch eski Ghost Panel kurulumdur. Yeni QHotspot Panel kurulumu için lütfen [bu branch'ı](https://bitbucket.org/qtechnics/qhotspot/src/) kullanınız.**
 
 ### Gereksinimler
 
-* Temiz kurulmuş pfSense 2.3.x yada üstü
+* Temiz kurulmuş pfSense 2.4.4 yada üstü
 
 ### Kurulum
 
@@ -24,7 +26,7 @@ Herahngi bir SSH istemci yazılımı ile pfSense'ye SSH üzerinden bağlanıp a�
 **Not : SSH'a root kullanıcısı ile bağlanın admin değil !**
 
 ```
-fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
+fetch -o install.sh https://goo.gl/mc8cqn && sh install.sh
 ```
 
 #####Varsayılan Ayarlar

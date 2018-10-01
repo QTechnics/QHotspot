@@ -4,13 +4,15 @@
 
 * Türkçe açıklamalar için lütfen [tıklayınız](README-tr.md).
 
+**!!! This branch for pfSense 2.4.4 or higher
+
 **!!! This project is under construction. We are not responsible for any problems that may occur in your system.**
 
 **!!!This branch only install old ghost panel. For the new QHotspot panel, please use [this branch](https://bitbucket.org/qtechnics/qhotspot/src/).**
 
 ### Prerequirements
 
-* Fresh installed pfSense 2.3.x or higher
+* Fresh installed pfSense 2.4.4 or higher
 
 ### Installing
 
@@ -25,7 +27,7 @@ And run the following command :
 **Note : root user must be logged in. Not admin.**
 
 ```
-fetch -o install.sh https://goo.gl/7qBoNX && sh install.sh
+fetch -o install.sh https://goo.gl/mc8cqn && sh install.sh
 ```
 
 #####Default Configs
