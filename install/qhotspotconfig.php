@@ -213,6 +213,8 @@ $captiveportal = [
     "radmac_format" => "default",
     "radiusnasid" => null,
     "page" => null,
+	"auth_server" => "radius - LocalRadius",
+	"radacct_server" => "LocalRadius"
 ];
 
 $testuser = [
@@ -385,5 +387,18 @@ if (!preg_match("/captive_portal_status/", $config['widgets']['sequence'])) {
 if (!preg_match("/services_status/", $config['widgets']['sequence'])) {
     $config['widgets']['sequence'] = $config['widgets']['sequence'] . ",services_status:col2:open";
 }
+
+$config['system']['authserver'][] = array(
+	'refid' => '5bf588f9489a4',
+	'type' => 'radius',
+	'name' => 'LocalRadius',
+	'radius_protocol' => 'PAP',
+	'host' => $lanip,
+	'radius_nasip_attribute' => 'wan',
+	'radius_secret' => 'qhotspot',
+	'radius_timeout' => '5',
+	'radius_auth_port' => '1812',
+	'radius_acct_port' => '1813',
+);
 
 write_config("QHotspot Settings added.");

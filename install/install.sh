@@ -30,6 +30,9 @@ fi
 START_PATH=${PWD}
 touch ${START_PATH}/qhotspot.log
 OUTPUTLOG=${START_PATH}/qhotspot.log
+ABI=`/usr/sbin/pkg config abi`
+FREEBSD_PACKAGE_URL="https://pkg.freebsd.org/${ABI}/latest/All/"
+FREEBSD_PACKAGE_LIST_URL="https://pkg.freebsd.org/${ABI}/latest/packagesite.txz"
 
 # Defaults
 QH_LANG_DEFAULT="en"
@@ -125,64 +128,99 @@ _selectLanguage() {
     QH_ZONE_NAME="${QH_ZONE_NAME:-$QH_ZONE_NAME_DEFAULT}"
 }
 
-_activeRepos() {
-    echo -n ${L_ACTIVEREPOS} 1>&3
-    tar xv -C / -f /usr/local/share/pfSense/base.txz ./usr/bin/install
-    if [ ${OS_VERSION_MINOR} -lt "4" ]; then
-        sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/etc/pkg/repos/pfSense.conf
-    else
-        sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf
-    fi
-    sed -i .bak -e "s/FreeBSD: { enabled: no/FreeBSD: { enabled: yes/g" /usr/local/etc/pkg/repos/FreeBSD.conf
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg update
-    echo ${L_OK} 1>&3
-}
-
-_deactiveRepos() {
-    echo -n ${L_DEACTIVEREPOS} 1>&3
-    if [ ${OS_VERSION_MINOR} -lt "4" ]; then
-        sed -i .bak -e "s/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g" /usr/local/etc/pkg/repos/pfSense.conf
-    else
-        sed -i .bak -e "s/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g" /usr/local/share/pfSense/pkg/repos/pfSense-repo.conf
-    fi
-    sed -i .bak -e 's/FreeBSD: { enabled: yes/FreeBSD: { enabled: no/g' /usr/local/etc/pkg/repos/FreeBSD.conf
-    echo ${L_OK} 1>&3
+AddPkg () {
+	pkgname=$1
+	pkginfo=`grep "\"name\":\"$pkgname\"" packagesite.yaml`
+	pkgvers=`echo $pkginfo | pcregrep -o1 '"version":"(.*?)"' | head -1`
+	echo -n $pkgname 1>&3
+	env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg add -f ${FREEBSD_PACKAGE_URL}${pkgname}-${pkgvers}.txz
+	echo ${L_OK} 1>&3
 }
 
 _installPackages() {
 
+echo ${L_INSTALLPACKAGES} 1>&3
+
 if [ ! -f ${PWD}/restarted.qhs ]; then
     exec 3>&1 1>>${OUTPUTLOG} 2>&1
-    # FreeBSD ve pfSense paketleri aktif ediliyor...
-    _activeRepos
+	if ! /usr/sbin/pkg -N 2> /dev/null; then
+	  env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg bootstrap
+	fi
 
-    echo -n ${L_INSTALLPACKAGES} 1>&3
+	if ! /usr/sbin/pkg -N 2> /dev/null; then
+	  echo "ERROR: pkgng installation failed. Exiting."
+	  exit 1
+	fi
+
+	tar xv -C / -f /usr/local/share/pfSense/base.txz ./usr/bin/install
+
+	fetch ${FREEBSD_PACKAGE_LIST_URL}
+	tar vfx packagesite.txz
+
+
+	
+	AddPkg cvsps
+	AddPkg p5-Digest-HMAC
+	AddPkg p5-GSSAPI
+	AddPkg p5-Authen-SASL
+	AddPkg p5-HTML-Tagset
+	AddPkg p5-HTML-Parser
+	AddPkg p5-CGI
+	AddPkg p5-Error
+	AddPkg p5-Socket6
+	AddPkg p5-IO-Socket-INET6
+	AddPkg p5-Mozilla-CA
+	AddPkg p5-Net-SSLeay
+	AddPkg p5-IO-Socket-SSL
+	AddPkg git
+	AddPkg wget
+	AddPkg nano
+	AddPkg libXau
+	AddPkg xorgproto
+	AddPkg libXdmcp
+	AddPkg libpthread-stubs
+	AddPkg libxcb
+	AddPkg libX11
+	AddPkg libXext
+	AddPkg png
+	AddPkg libslang2
+	AddPkg libssh2
+	AddPkg mc
+	AddPkg lsof
+	AddPkg htop
+	AddPkg mysql56-client
+	AddPkg mysql56-server
+	
     ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
     if [ ${ARCH} == "amd64" ]
     then
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-amd64 php72-mysqli php72-pdo_mysql php72-soap
+		AddPkg compat10x-amd64
+		AddPkg compat9x-amd64
+		AddPkg compat8x-amd64
     else
-    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg install git wget nano mc htop mysql56-server compat8x-i386 php72-mysqli php72-pdo_mysql php72-soap
+		AddPkg compat10x-i386
+		AddPkg compat9x-i386
+		AddPkg compat8x-i386
     fi
+	
+	AddPkg php72-mysqli
+	AddPkg php72-pdo_mysql
+	AddPkg php72-soap
+	
     hash -r
-    echo ${L_OK} 1>&3
 
     touch ${PWD}/restarted.qhs
     echo -e ${L_RESTARTMESSAGE} 1>&3
     echo ${L_PRESSANYKEY} 1>&3
     read -p "restart" answer
     /sbin/reboot
-
-    # FreeBSD ve pfSense paketleri deaktif ediliyor...
-    _deactiveRepos
-
 fi
 }
 
 _cloneQHotspot() {
     echo -n ${L_CLONEQHOTSPOT} 1>&3
     cd /usr/local
-    git clone -b ghost https://QTechnics@bitbucket.org/qtechnics/qhotspot.git qhotspot
+    git clone -b ghost-2.4.4 https://QTechnics@bitbucket.org/qtechnics/qhotspot.git qhotspot
     cd /usr/local/qhotspot
     cd /usr/local/qhotspot/install
     echo ${L_OK} 1>&3
