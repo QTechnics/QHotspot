@@ -48,7 +48,6 @@ _selectLanguage
 printf "\033c"
 
 # Gerekli paketler kuruluyor...
-exec 3>&1 1>>${OUTPUTLOG} 2>&1
 
 _installPackages
 
@@ -61,6 +60,8 @@ _userInputs
 echo
 echo ${L_STARTING}
 echo
+
+exec 3>&1 1>>${OUTPUTLOG} 2>&1
 
 # QHotspot Repodan cekiliyor...
 _cloneQHotspot
@@ -172,7 +173,7 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
 	AddPkg p5-Mozilla-CA
 	AddPkg p5-Net-SSLeay
 	AddPkg p5-IO-Socket-SSL
-    AddPkg python36
+	AddPkg python36
 	AddPkg git
 	AddPkg wget
 	AddPkg nano
