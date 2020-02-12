@@ -177,6 +177,7 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
     AddPkg db5
     AddPkg gdbm
     AddPkg apr
+    AddPkg subversion
     AddPkg p5-subversion
 	AddPkg python36
 	AddPkg git
