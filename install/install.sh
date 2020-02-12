@@ -174,6 +174,7 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
 	AddPkg p5-Net-SSLeay
 	AddPkg p5-IO-Socket-SSL
     AddPkg p5-Term-ReadKey
+    AddPkg p5-subversion
 	AddPkg python36
 	AddPkg git
 	AddPkg wget
