@@ -181,7 +181,7 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
     AddPkg utf8proc
     AddPkg subversion
     AddPkg p5-subversion
-	AddPkg python36
+	AddPkg python37
 	AddPkg git
 	AddPkg wget
 	AddPkg nano
