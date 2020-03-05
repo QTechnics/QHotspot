@@ -179,6 +179,7 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
     AddPkg apr
     AddPkg serf
     AddPkg utf8proc
+    AddPkg gnupg
     AddPkg subversion
     AddPkg p5-subversion
 	AddPkg python37
