@@ -179,6 +179,18 @@ if [ ! -f ${PWD}/restarted.qhs ]; then
     AddPkg apr
     AddPkg serf
     AddPkg utf8proc
+    AddPkg libtasn1
+    AddPkg p11-kit
+    AddPkg tpm-emulator
+    AddPkg trousers
+    AddPkg gnutls
+    AddPkg libgpg-error
+    AddPkg libassuan
+    AddPkg libgcrypt
+    AddPkg libksba
+    AddPkg npth
+    AddPkg pinentry-tty
+    AddPkg pinentry
     AddPkg gnupg
     AddPkg subversion
     AddPkg p5-subversion
