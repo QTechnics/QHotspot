@@ -2,119 +2,121 @@
 
 main() {
 
-if [ ${USER} != "root" ]; then
+    if [ ${USER} != "root" ]; then
         echo "Please login \"root\" user. Not \"admin\" user !"
         exit
-fi
+    fi
 
-if [ -f /etc/platform ]; then
-	if [ `cat /etc/platform` = "pfSense" ]; then
-		OS_NAME=pfSense
-		OS_VERSION=`cat /etc/version`
-		OS_VERSION_MAJOR=`cat /etc/version | awk -F. '{print $1}'`
-		OS_VERSION_MINOR=`cat /etc/version | awk -F. '{print $2}'`
-		OS_VERSION_REVISION=`cat /etc/version | awk -F. '{print $3}'`
+    if [ -f /etc/platform ]; then
+        if [ $(cat /etc/platform) = "pfSense" ]; then
+            OS_NAME=pfSense
+            OS_VERSION=$(cat /etc/version)
+            OS_VERSION_MAJOR=$(cat /etc/version | awk -F. '{print $1}')
+            OS_VERSION_MINOR=$(cat /etc/version | awk -F. '{print $2}')
+            OS_VERSION_REVISION=$(cat /etc/version | awk -F. '{print $3}')
 
-		if [ ${OS_VERSION_MAJOR} != "2" ] || [ ${OS_VERSION_MINOR} -lt "3" ]; then
-            echo "Are you sure this operating system is pfSense 2.3.x or later? This installation only works in version 2.3.x or later"
-            exit
-		fi
-		else
-		    echo "Are you sure this operating system is pfSense?"
-	fi
-	else
+            if [ ${OS_VERSION_MAJOR} != "2" ] || [ ${OS_VERSION_MINOR} -lt "3" ]; then
+                echo "Are you sure this operating system is pfSense 2.3.x or later? This installation only works in version 2.3.x or later"
+                exit
+            fi
+        else
+            echo "Are you sure this operating system is pfSense?"
+        fi
+    else
         echo "Are you sure this operating system is pfSense?"
         exit
-fi
+    fi
 
-START_PATH=${PWD}
-touch ${START_PATH}/qhotspot.log
-OUTPUTLOG=${START_PATH}/qhotspot.log
-ABI=`/usr/sbin/pkg config abi`
-FREEBSD_PACKAGE_URL="https://pkg.freebsd.org/${ABI}/latest/All/"
-FREEBSD_PACKAGE_LIST_URL="https://pkg.freebsd.org/${ABI}/latest/packagesite.txz"
+    START_PATH=${PWD}
+    touch ${START_PATH}/qhotspot.log
+    OUTPUTLOG=${START_PATH}/qhotspot.log
+    ABI=$(/usr/sbin/pkg config abi)
+    FREEBSD_PACKAGE_URL="https://pkg.freebsd.org/${ABI}/latest/All/"
+    FREEBSD_PACKAGE_LIST_URL="https://pkg.freebsd.org/${ABI}/latest/packagesite.txz"
 
-# Defaults
-QH_LANG_DEFAULT="en"
-QH_PORT_DEFAULT="81"
-QH_MYSQL_ROOT_PASS_DEFAULT="qhotspot"
-QH_MYSQL_USER_NAME_DEFAULT="qhotspot"
-QH_MYSQL_USER_PASS_DEFAULT="qhotspot"
-QH_MYSQL_DBNAME_DEFAULT="qhotspot"
-QH_ZONE_NAME_DEFAULT="QHOTSPOT"
+    # Defaults
+    QH_LANG_DEFAULT="en"
+    QH_PORT_DEFAULT="81"
+    QH_MYSQL_ROOT_PASS_DEFAULT="qhotspot"
+    QH_MYSQL_USER_NAME_DEFAULT="qhotspot"
+    QH_MYSQL_USER_PASS_DEFAULT="qhotspot"
+    QH_MYSQL_DBNAME_DEFAULT="qhotspot"
+    QH_ZONE_NAME_DEFAULT="QHOTSPOT"
 
-_selectLanguage
+    _selectLanguage
 
-printf "\033c"
+    printf "\033c"
 
-# Gerekli paketler kuruluyor...
+    # Gerekli paketler kuruluyor...
 
-_installPackages
+    _installPackages
 
-echo -e ${L_WELCOME}
-echo
+    echo -e ${L_WELCOME}
+    echo
 
-# User Inputs
-_userInputs
+    # User Inputs
+    _userInputs
 
-echo
-echo ${L_STARTING}
-echo
+    echo
+    echo ${L_STARTING}
+    echo
 
-exec 3>&1 1>>${OUTPUTLOG} 2>&1
+    exec 3>&1 1>>${OUTPUTLOG} 2>&1
 
-# QHotspot Repodan cekiliyor...
-_cloneQHotspot
+    # QHotspot Repodan cekiliyor...
+    _cloneQHotspot
 
-# MySQL 5.6 Server paketi kuruluyor...
-_mysqlInstall
+    # MySQL 5.6 Server paketi kuruluyor...
+    _mysqlInstall
 
-_mysqlSettings
+    _mysqlSettings
 
-# QHotspot nginx 81 port eklemesi yapiliyor...
-_nginxSettings
+    # QHotspot nginx 81 port eklemesi yapiliyor...
+    _nginxSettings
 
-# freeRADIUS3 kuruluyor...
-_radiusInstall
+    # freeRADIUS3 kuruluyor...
+    _radiusInstall
 
-# Cron kuruluyor...
-_cronInstall
+    # Cron kuruluyor...
+    _cronInstall
 
-# QHotspot Konfigurasyon yukleniyor...
-_qhotspotSettings
+    # QHotspot Konfigurasyon yukleniyor...
+    _qhotspotSettings
 
-# Temizlik
-_clean
+    # Temizlik
+    _clean
 
-if $( YesOrNo "${L_QUNIFIINSTALL}"); then 1>&3
-    echo -n ${L_UNIFICONTROLLER} 1>&3
-    fetch -o - https://git.io/j7Jy | sh -s
-    echo ${L_OK} 1>&3
-fi
-if $( YesOrNo "${L_QRESTARTPFSENSE}"); then 1>&3
+    if $(YesOrNo "${L_QUNIFIINSTALL}"); then
+        1>&3
+        echo -n ${L_UNIFICONTROLLER} 1>&3
+        fetch -o - https://git.io/j7Jy | sh -s
+        echo ${L_OK} 1>&3
+    fi
+    if $(YesOrNo "${L_QRESTARTPFSENSE}"); then
+        1>&3
         echo ${L_RESTARTPFSENSE} 1>&3
         /sbin/reboot
-else
+    else
         cd /usr/local/qhotspot
-fi
+    fi
 }
 
 _selectLanguage() {
     read -p "Select your language (en/tr) [$QH_LANG_DEFAULT]: " QH_LANG
     QH_LANG="${QH_LANG:-$QH_LANG_DEFAULT}"
     case "${QH_LANG}" in
-            [eE][nN])
-            fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_en.inc
-            . lang_en.inc
-            ;;
-            [tT][rR])
-            fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_tr.inc
-            . lang_tr.inc
-            ;;
+    [eE][nN])
+        fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_en.inc
+        . lang_en.inc
+        ;;
+    [tT][rR])
+        fetch https://bitbucket.org/qtechnics/qhotspot/raw/master/install/lang_tr.inc
+        . lang_tr.inc
+        ;;
     esac
 }
 
- _userInputs() {
+_userInputs() {
     read -p "$L_QPORT [$QH_PORT_DEFAULT]: " QH_PORT
     QH_PORT="${QH_PORT:-$QH_PORT_DEFAULT}"
     read -p "$L_QROOTPASS [$QH_MYSQL_ROOT_PASS_DEFAULT]: " QH_MYSQL_ROOT_PASS
@@ -129,115 +131,114 @@ _selectLanguage() {
     QH_ZONE_NAME="${QH_ZONE_NAME:-$QH_ZONE_NAME_DEFAULT}"
 }
 
-AddPkg () {
-	pkgname=$1
-	pkginfo=`grep "\"name\":\"$pkgname\"" packagesite.yaml`
-	pkgvers=`echo $pkginfo | pcregrep -o1 '"version":"(.*?)"' | head -1`
-	echo -n $pkgname 1>&3
-	env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg add -f ${FREEBSD_PACKAGE_URL}${pkgname}-${pkgvers}.txz
-	echo ${L_OK} 1>&3
+AddPkg() {
+    pkgname=$1
+    pkginfo=$(grep "\"name\":\"$pkgname\"" packagesite.yaml)
+    pkgvers=$(echo $pkginfo | pcregrep -o1 '"version":"(.*?)"' | head -1)
+    echo -n $pkgname 1>&3
+    env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg add -f ${FREEBSD_PACKAGE_URL}${pkgname}-${pkgvers}.txz
+    echo ${L_OK} 1>&3
 }
 
 _installPackages() {
 
-echo ${L_INSTALLPACKAGES} 1>&3
+    echo ${L_INSTALLPACKAGES} 1>&3
 
-if [ ! -f ${PWD}/restarted.qhs ]; then
-    exec 3>&1 1>>${OUTPUTLOG} 2>&1
-	if ! /usr/sbin/pkg -N 2> /dev/null; then
-	  env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg bootstrap
-	fi
+    if [ ! -f ${PWD}/restarted.qhs ]; then
+        exec 3>&1 1>>${OUTPUTLOG} 2>&1
+        if ! /usr/sbin/pkg -N 2>/dev/null; then
+            env ASSUME_ALWAYS_YES=YES /usr/sbin/pkg bootstrap
+        fi
 
-	if ! /usr/sbin/pkg -N 2> /dev/null; then
-	  echo "ERROR: pkgng installation failed. Exiting."
-	  exit 1
-	fi
+        if ! /usr/sbin/pkg -N 2>/dev/null; then
+            echo "ERROR: pkgng installation failed. Exiting."
+            exit 1
+        fi
 
-	tar xv -C / -f /usr/local/share/pfSense/base.txz ./usr/bin/install
+        tar xv -C / -f /usr/local/share/pfSense/base.txz ./usr/bin/install
 
-	fetch ${FREEBSD_PACKAGE_LIST_URL}
-	tar vfx packagesite.txz
+        fetch ${FREEBSD_PACKAGE_LIST_URL}
+        tar vfx packagesite.txz
 
+        AddPkg cvsps
+        AddPkg p5-Digest-HMAC
+        AddPkg p5-GSSAPI
+        AddPkg p5-Authen-SASL
+        AddPkg p5-HTML-Tagset
+        AddPkg p5-HTML-Parser
+        AddPkg p5-CGI
+        AddPkg p5-Error
+        AddPkg p5-Socket6
+        AddPkg p5-IO-Socket-INET6
+        AddPkg p5-Mozilla-CA
+        AddPkg p5-Net-SSLeay
+        AddPkg p5-IO-Socket-SSL
+        AddPkg p5-Term-ReadKey
+        AddPkg db5
+        AddPkg gdbm
+        AddPkg apr
+        AddPkg serf
+        AddPkg utf8proc
+        AddPkg libtasn1
+        AddPkg p11-kit
+        AddPkg tpm-emulator
+        AddPkg trousers
+        AddPkg gnutls
+        AddPkg libgpg-error
+        AddPkg libassuan
+        AddPkg libgcrypt
+        AddPkg libksba
+        AddPkg npth
+        AddPkg pinentry-tty
+        AddPkg pinentry
+        AddPkg gnupg
+        AddPkg subversion
+        AddPkg p5-subversion
+        AddPkg p5-GSSAPI
+        AddPkg p5-Authen-SASL
+        AddPkg python37
+        AddPkg git
+        AddPkg wget
+        AddPkg nano
+        AddPkg libXau
+        AddPkg xorgproto
+        AddPkg libXdmcp
+        AddPkg libpthread-stubs
+        AddPkg libxcb
+        AddPkg libX11
+        AddPkg libXext
+        AddPkg png
+        AddPkg libslang2
+        AddPkg libssh2
+        AddPkg mc
+        AddPkg lsof
+        AddPkg htop
+        AddPkg mysql56-client
+        AddPkg mysql56-server
 
-	
-	AddPkg cvsps
-	AddPkg p5-Digest-HMAC
-	AddPkg p5-GSSAPI
-	AddPkg p5-Authen-SASL
-	AddPkg p5-HTML-Tagset
-	AddPkg p5-HTML-Parser
-	AddPkg p5-CGI
-	AddPkg p5-Error
-	AddPkg p5-Socket6
-	AddPkg p5-IO-Socket-INET6
-	AddPkg p5-Mozilla-CA
-	AddPkg p5-Net-SSLeay
-	AddPkg p5-IO-Socket-SSL
-    AddPkg p5-Term-ReadKey
-    AddPkg db5
-    AddPkg gdbm
-    AddPkg apr
-    AddPkg serf
-    AddPkg utf8proc
-    AddPkg libtasn1
-    AddPkg p11-kit
-    AddPkg tpm-emulator
-    AddPkg trousers
-    AddPkg gnutls
-    AddPkg libgpg-error
-    AddPkg libassuan
-    AddPkg libgcrypt
-    AddPkg libksba
-    AddPkg npth
-    AddPkg pinentry-tty
-    AddPkg pinentry
-    AddPkg gnupg
-    AddPkg subversion
-    AddPkg p5-subversion
-	AddPkg python37
-	AddPkg git
-	AddPkg wget
-	AddPkg nano
-	AddPkg libXau
-	AddPkg xorgproto
-	AddPkg libXdmcp
-	AddPkg libpthread-stubs
-	AddPkg libxcb
-	AddPkg libX11
-	AddPkg libXext
-	AddPkg png
-	AddPkg libslang2
-	AddPkg libssh2
-	AddPkg mc
-	AddPkg lsof
-	AddPkg htop
-	AddPkg mysql56-client
-	AddPkg mysql56-server
-	
-    ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
-    if [ ${ARCH} == "amd64" ]
-    then
-		AddPkg compat10x-amd64
-		AddPkg compat9x-amd64
-		AddPkg compat8x-amd64
-    else
-		AddPkg compat10x-i386
-		AddPkg compat9x-i386
-		AddPkg compat8x-i386
+        ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
+        if [ ${ARCH} == "amd64" ]; then
+            AddPkg compat10x-amd64
+            AddPkg compat9x-amd64
+            AddPkg compat8x-amd64
+        else
+            AddPkg compat10x-i386
+            AddPkg compat9x-i386
+            AddPkg compat8x-i386
+        fi
+
+        AddPkg php72-mysqli
+        AddPkg php72-pdo_mysql
+        AddPkg php72-soap
+
+        hash -r
+
+        touch ${PWD}/restarted.qhs
+        echo -e ${L_RESTARTMESSAGE} 1>&3
+        echo ${L_PRESSANYKEY} 1>&3
+        read -p "restart" answer
+        /sbin/reboot
     fi
-	
-	AddPkg php72-mysqli
-	AddPkg php72-pdo_mysql
-	AddPkg php72-soap
-	
-    hash -r
-
-    touch ${PWD}/restarted.qhs
-    echo -e ${L_RESTARTMESSAGE} 1>&3
-    echo ${L_PRESSANYKEY} 1>&3
-    read -p "restart" answer
-    /sbin/reboot
-fi
 }
 
 _cloneQHotspot() {
@@ -252,7 +253,7 @@ _cloneQHotspot() {
 _mysqlInstall() {
     echo -n ${L_MYSQLINSTALL} 1>&3
     if [ ! -f /etc/rc.conf.local ] || [ $(grep -c mysql_enable /etc/rc.conf.local) -eq 0 ]; then
-        echo 'mysql_enable="YES"' >> /etc/rc.conf.local
+        echo 'mysql_enable="YES"' >>/etc/rc.conf.local
     fi
     mv /usr/local/etc/rc.d/mysql-server /usr/local/etc/rc.d/mysql-server.sh
     sed -i .bak -e 's/mysql_enable="NO"/mysql_enable="YES"/g' /usr/local/etc/rc.d/mysql-server.sh
@@ -268,7 +269,7 @@ _mysqlSettings() {
 
     # MySQL veritabani yukleniyor
     echo -n ${L_MYSQLINSERTS} 1>&3
-    cat <<EOF > /usr/local/qhotspot/install/client.cnf
+    cat <<EOF >/usr/local/qhotspot/install/client.cnf
 [client]
 user = root
 password = ${QH_MYSQL_ROOT_PASS}
@@ -284,12 +285,12 @@ EOF
     sed -i .bak -e "s/{QH_MYSQL_USER_PASS}/$QH_MYSQL_USER_PASS/g" /usr/local/qhotspot/install/qhotspot.sql
     sed -i .bak -e "s/{QH_MYSQL_DBNAME}/$QH_MYSQL_DBNAME/g" /usr/local/qhotspot/install/qhotspot.sql
 
-    mysql --defaults-extra-file=/usr/local/qhotspot/install/client.cnf < /usr/local/qhotspot/install/qhotspot.sql
+    mysql --defaults-extra-file=/usr/local/qhotspot/install/client.cnf </usr/local/qhotspot/install/qhotspot.sql
     echo ${L_OK} 1>&3
 
     # MySQL icin watchdog scripti olusturuluyor.
     echo -n ${L_MYSQLWATCHDOG} 1>&3
-    cat <<EOF > /usr/local/bin/qhotspot_check.sh
+    cat <<EOF >/usr/local/bin/qhotspot_check.sh
 #!/usr/bin/env sh
 service mysql-server.sh status
 if [ \$? != 0 ]; then
@@ -309,7 +310,7 @@ _nginxSettings() {
     cp /usr/local/qhotspot/install/qhotspot.sh /usr/local/etc/rc.d/qhotspot.sh
     chmod +x /usr/local/etc/rc.d/qhotspot.sh
     if [ ! -f /etc/rc.conf.local ] || [ $(grep -c qhotspot_enable /etc/rc.conf.local) -eq 0 ]; then
-        echo 'qhotspot_enable="YES"' >> /etc/rc.conf.local
+        echo 'qhotspot_enable="YES"' >>/etc/rc.conf.local
     fi
     sed -i .bak -e "s/{QH_PORT}/$QH_PORT/g" /usr/local/qhotspot/install/nginx-QHotspot.conf
     echo ${L_OK} 1>&3
@@ -317,36 +318,32 @@ _nginxSettings() {
 
 _radiusInstall() {
     /usr/local/sbin/pfSsh.php playback listpkg | grep "freeradius2"
-    if [ $? == 0 ]
-    then
-    echo -n ${L_RADIUS2ALREADYINSTALLED} 1>&3
-    /usr/local/sbin/pfSsh.php playback uninstallpkg "freeradius2"
+    if [ $? == 0 ]; then
+        echo -n ${L_RADIUS2ALREADYINSTALLED} 1>&3
+        /usr/local/sbin/pfSsh.php playback uninstallpkg "freeradius2"
     fi
     /usr/local/sbin/pfSsh.php playback listpkg | grep "freeradius3"
-    if [ $? == 0 ]
-    then
-    echo -n ${L_RADIUSALREADYINSTALLED} 1>&3
+    if [ $? == 0 ]; then
+        echo -n ${L_RADIUSALREADYINSTALLED} 1>&3
     else
-    echo -n ${L_RADIUSINSTALL} 1>&3
-    /usr/local/sbin/pfSsh.php playback installpkg "freeradius3"
-    hash -r
+        echo -n ${L_RADIUSINSTALL} 1>&3
+        /usr/local/sbin/pfSsh.php playback installpkg "freeradius3"
+        hash -r
     fi
     if [ ! -f /etc/rc.conf.local ] || [ $(grep -c radiusd_enable /etc/rc.conf.local) -eq 0 ]; then
-        echo 'radiusd_enable="YES"' >> /etc/rc.conf.local
+        echo 'radiusd_enable="YES"' >>/etc/rc.conf.local
     fi
     echo ${L_OK} 1>&3
 }
 
-
 _cronInstall() {
     /usr/local/sbin/pfSsh.php playback listpkg | grep "cron"
-    if [ $? == 0 ]
-    then
-    echo -n ${L_CRONALREADYINSTALLED} 1>&3
+    if [ $? == 0 ]; then
+        echo -n ${L_CRONALREADYINSTALLED} 1>&3
     else
-    echo -n ${L_CRONINSTALL} 1>&3
-    /usr/local/sbin/pfSsh.php playback installpkg "cron"
-    hash -r
+        echo -n ${L_CRONINSTALL} 1>&3
+        /usr/local/sbin/pfSsh.php playback installpkg "cron"
+        hash -r
     fi
     echo ${L_OK} 1>&3
 }
@@ -371,13 +368,12 @@ _clean() {
 }
 
 YesOrNo() {
-    while :
-    do
+    while :; do
         echo -n "$1 (yes/no?): " 1>&3
         read -p "$1 (yes/no?): " answer
         case "${answer}" in
-            [yY]|[yY][eE][sS]) exit 0 ;;
-                [nN]|[nN][oO]) exit 1 ;;
+        [yY] | [yY][eE][sS]) exit 0 ;;
+        [nN] | [nN][oO]) exit 1 ;;
         esac
     done
 }
