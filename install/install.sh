@@ -180,6 +180,8 @@ _installPackages() {
         AddPkg serf
         AddPkg utf8proc
         AddPkg libtasn1
+        AddPkg bash
+        AddPkg bash-completion
         AddPkg p11-kit
         AddPkg tpm-emulator
         AddPkg trousers
