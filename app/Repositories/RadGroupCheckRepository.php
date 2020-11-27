@@ -6,14 +6,14 @@ use App\Models\RadGroupCheck;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class RadGroupCheckRepository
- * @package App\Repositories
+ * Class RadGroupCheckRepository.
+ *
  * @version September 28, 2017, 11:03 am UTC
  *
  * @method RadGroupCheck findWithoutFail($id, $columns = ['*'])
  * @method RadGroupCheck find($id, $columns = ['*'])
  * @method RadGroupCheck first($columns = ['*'])
-*/
+ */
 class RadGroupCheckRepository extends BaseRepository
 {
     /**
@@ -23,11 +23,11 @@ class RadGroupCheckRepository extends BaseRepository
         'GroupName',
         'Attribute',
         'op',
-        'Value'
+        'Value',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

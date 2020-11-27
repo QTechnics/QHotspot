@@ -19,11 +19,12 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Auth::routes();
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+        'prefix'     => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
     ],
     function () {
         Route::get('/', 'HomeController@index');
-        Route::resource("users", "UserController");
+        Route::resource('users', 'UserController');
         Route::post('xhr/getAttributes', 'AjaxController@getAttributes');
-    });
+    }
+);

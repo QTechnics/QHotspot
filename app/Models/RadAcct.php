@@ -6,34 +6,35 @@ use Carbon\Carbon;
 use Eloquent as Model;
 
 /**
- * App\Models\RadAcct
+ * App\Models\RadAcct.
  *
- * @property int $RadAcctId
- * @property string $AcctSessionId
- * @property string $AcctUniqueId
- * @property string $UserName
- * @property string $Realm
- * @property string $NASIPAddress
- * @property string $NASPortId
- * @property string $NASPortType
+ * @property int            $RadAcctId
+ * @property string         $AcctSessionId
+ * @property string         $AcctUniqueId
+ * @property string         $UserName
+ * @property string         $Realm
+ * @property string         $NASIPAddress
+ * @property string         $NASPortId
+ * @property string         $NASPortType
  * @property \Carbon\Carbon $AcctStartTime
  * @property \Carbon\Carbon $AcctStopTime
- * @property int $AcctSessionTime
- * @property string $AcctAuthentic
- * @property string $ConnectInfo_start
- * @property string $ConnectInfo_stop
- * @property int|null $AcctInputOctets
- * @property int|null $AcctOutputOctets
- * @property string $CalledStationId
- * @property string $CallingStationId
- * @property string $AcctTerminateCause
- * @property string $ServiceType
- * @property string $FramedProtocol
- * @property string $FramedIPAddress
- * @property int $AcctStartDelay
- * @property int $AcctStopDelay
+ * @property int            $AcctSessionTime
+ * @property string         $AcctAuthentic
+ * @property string         $ConnectInfo_start
+ * @property string         $ConnectInfo_stop
+ * @property int|null       $AcctInputOctets
+ * @property int|null       $AcctOutputOctets
+ * @property string         $CalledStationId
+ * @property string         $CallingStationId
+ * @property string         $AcctTerminateCause
+ * @property string         $ServiceType
+ * @property string         $FramedProtocol
+ * @property string         $FramedIPAddress
+ * @property int            $AcctStartDelay
+ * @property int            $AcctStopDelay
  * @property-write mixed $acct_start_time
  * @property-write mixed $acct_stop_time
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadAcct whereAcctAuthentic($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadAcct whereAcctInputOctets($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadAcct whereAcctOutputOctets($value)
@@ -91,7 +92,7 @@ class RadAcct extends Model
         'FramedProtocol',
         'FramedIPAddress',
         'AcctStartDelay',
-        'AcctStopDelay'
+        'AcctStopDelay',
     ];
 
     /**
@@ -100,29 +101,29 @@ class RadAcct extends Model
      * @var array
      */
     protected $casts = [
-        'AcctSessionId' => 'string',
-        'AcctUniqueId' => 'string',
-        'UserName' => 'string',
-        'Realm' => 'string',
-        'NASIPAddress' => 'string',
-        'NASPortId' => 'string',
-        'NASPortType' => 'string',
-        'AcctSessionTime' => 'integer',
-        'AcctAuthentic' => 'string',
-        'ConnectInfo_start' => 'string',
-        'ConnectInfo_stop' => 'string',
-        'CalledStationId' => 'string',
-        'CallingStationId' => 'string',
+        'AcctSessionId'      => 'string',
+        'AcctUniqueId'       => 'string',
+        'UserName'           => 'string',
+        'Realm'              => 'string',
+        'NASIPAddress'       => 'string',
+        'NASPortId'          => 'string',
+        'NASPortType'        => 'string',
+        'AcctSessionTime'    => 'integer',
+        'AcctAuthentic'      => 'string',
+        'ConnectInfo_start'  => 'string',
+        'ConnectInfo_stop'   => 'string',
+        'CalledStationId'    => 'string',
+        'CallingStationId'   => 'string',
         'AcctTerminateCause' => 'string',
-        'ServiceType' => 'string',
-        'FramedProtocol' => 'string',
-        'FramedIPAddress' => 'string',
-        'AcctStartDelay' => 'integer',
-        'AcctStopDelay' => 'integer'
+        'ServiceType'        => 'string',
+        'FramedProtocol'     => 'string',
+        'FramedIPAddress'    => 'string',
+        'AcctStartDelay'     => 'integer',
+        'AcctStopDelay'      => 'integer',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
@@ -130,23 +131,23 @@ class RadAcct extends Model
 
     ];
 
-
     /**
-     * Convert SQL datetime to Carbon datetime
+     * Convert SQL datetime to Carbon datetime.
+     *
      * @param $value
      */
     public function setAcctStartTimeAttribute($value)
     {
-        $this->attributes["AcctStartTime"] = Carbon::parse($value);
+        $this->attributes['AcctStartTime'] = Carbon::parse($value);
     }
 
     /**
-     * Convert SQL datetime to Carbon datetime
+     * Convert SQL datetime to Carbon datetime.
+     *
      * @param $value
      */
     public function setAcctStopTimeAttribute($value)
     {
-        $this->attributes["AcctStopTime"] = Carbon::parse($value);
+        $this->attributes['AcctStopTime'] = Carbon::parse($value);
     }
-
 }

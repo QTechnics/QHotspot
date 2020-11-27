@@ -6,14 +6,14 @@ use App\Models\RadGroupReply;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class RadGroupReplyRepository
- * @package App\Repositories
+ * Class RadGroupReplyRepository.
+ *
  * @version September 28, 2017, 11:03 am UTC
  *
  * @method RadGroupReply findWithoutFail($id, $columns = ['*'])
  * @method RadGroupReply find($id, $columns = ['*'])
  * @method RadGroupReply first($columns = ['*'])
-*/
+ */
 class RadGroupReplyRepository extends BaseRepository
 {
     /**
@@ -23,11 +23,11 @@ class RadGroupReplyRepository extends BaseRepository
         'GroupName',
         'Attribute',
         'op',
-        'Value'
+        'Value',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

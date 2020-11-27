@@ -13,12 +13,12 @@ return [
     |
     */
 
-    'failed' => 'Bu kimlik bilgileri bizim kayıtlarımız ile eşleşmiyor.',
-    'throttle' => 'Çok sayıda hatalı oturum açma girişiminde bulundunuz. Lütfen :seconds saniye sonra tekrar deneyiniz.',
+    'failed'      => 'Bu kimlik bilgileri bizim kayıtlarımız ile eşleşmiyor.',
+    'throttle'    => 'Çok sayıda hatalı oturum açma girişiminde bulundunuz. Lütfen :seconds saniye sonra tekrar deneyiniz.',
     'remember_me' => 'Beni hatırla',
-    'header' => 'Oturumunuzu başlatmak için giriş yapın',
-    'email' => 'E-Posta',
-    'password' => 'Şifre',
-    'sign_in' => 'Giriş Yap',
-    'forgot' => 'Şifremi unuttum',
+    'header'      => 'Oturumunuzu başlatmak için giriş yapın',
+    'email'       => 'E-Posta',
+    'password'    => 'Şifre',
+    'sign_in'     => 'Giriş Yap',
+    'forgot'      => 'Şifremi unuttum',
 ];

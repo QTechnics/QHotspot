@@ -24,13 +24,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("users.create");
+        return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +42,8 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RadCheck  $radCheck
+     * @param \App\Models\RadCheck $radCheck
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(RadCheck $radCheck)
@@ -52,7 +54,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RadCheck  $radCheck
+     * @param \App\Models\RadCheck $radCheck
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(RadCheck $radCheck)
@@ -63,8 +66,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RadCheck  $radCheck
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\RadCheck     $radCheck
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, RadCheck $radCheck)
@@ -75,7 +79,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RadCheck  $radCheck
+     * @param \App\Models\RadCheck $radCheck
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(RadCheck $radCheck)

@@ -6,14 +6,14 @@ use App\Models\RadPostAuth;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class RadPostAuthRepository
- * @package App\Repositories
+ * Class RadPostAuthRepository.
+ *
  * @version September 28, 2017, 11:16 am UTC
  *
  * @method RadPostAuth findWithoutFail($id, $columns = ['*'])
  * @method RadPostAuth find($id, $columns = ['*'])
  * @method RadPostAuth first($columns = ['*'])
-*/
+ */
 class RadPostAuthRepository extends BaseRepository
 {
     /**
@@ -23,11 +23,11 @@ class RadPostAuthRepository extends BaseRepository
         'user',
         'pass',
         'reply',
-        'date'
+        'date',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

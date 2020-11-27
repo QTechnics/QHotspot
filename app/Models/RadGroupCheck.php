@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\RadGroupCheck
+ * App\Models\RadGroupCheck.
  *
- * @property int $id
+ * @property int    $id
  * @property string $GroupName
  * @property string $Attribute
  * @property string $op
  * @property string $Value
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadGroupCheck whereAttribute($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadGroupCheck whereGroupName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadGroupCheck whereId($value)
@@ -30,7 +30,7 @@ class RadGroupCheck extends Model
         'GroupName',
         'Attribute',
         'op',
-        'Value'
+        'Value',
     ];
 
     /**
@@ -39,21 +39,19 @@ class RadGroupCheck extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id'        => 'integer',
         'GroupName' => 'string',
         'Attribute' => 'string',
-        'op' => 'string',
-        'Value' => 'string'
+        'op'        => 'string',
+        'Value'     => 'string',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
 }

@@ -35,7 +35,7 @@ class UserRoleSeeder extends Seeder
         $testuser->Attribute = 'User-Password';
         $testuser->Value = 'testmysql';
         $testuser->TcKimlikNo = 12345678901;
-        $testuser->op = "==";
+        $testuser->op = '==';
         $testuser->save();
     }
 }

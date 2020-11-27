@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateNasTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -26,7 +25,6 @@ class CreateNasTable extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      *
@@ -36,5 +34,4 @@ class CreateNasTable extends Migration
     {
         Schema::drop('nas');
     }
-
 }

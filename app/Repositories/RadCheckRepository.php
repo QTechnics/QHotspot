@@ -6,14 +6,14 @@ use App\Models\RadCheck;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class RadCheckRepository
- * @package App\Repositories
+ * Class RadCheckRepository.
+ *
  * @version October 5, 2017, 10:12 pm UTC
  *
  * @method RadCheck findWithoutFail($id, $columns = ['*'])
  * @method RadCheck find($id, $columns = ['*'])
  * @method RadCheck first($columns = ['*'])
-*/
+ */
 class RadCheckRepository extends BaseRepository
 {
     /**
@@ -24,11 +24,11 @@ class RadCheckRepository extends BaseRepository
         'Attribute',
         'op',
         'Value',
-        'TcKimlikNo'
+        'TcKimlikNo',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

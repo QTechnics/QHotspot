@@ -3,19 +3,19 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\RadCheck
+ * App\Models\RadCheck.
  *
- * @property int $id
- * @property string $UserName
- * @property string $Attribute
- * @property string $op
- * @property string $Value
- * @property string $TcKimlikNo
+ * @property int                 $id
+ * @property string              $UserName
+ * @property string              $Attribute
+ * @property string              $op
+ * @property string              $Value
+ * @property string              $TcKimlikNo
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadCheck whereAttribute($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadCheck whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadCheck whereId($value)
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RadCheck extends Model
 {
     public $table = 'radcheck';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -38,7 +38,7 @@ class RadCheck extends Model
         'Attribute',
         'op',
         'Value',
-        'TcKimlikNo'
+        'TcKimlikNo',
     ];
 
     /**
@@ -47,22 +47,20 @@ class RadCheck extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'UserName' => 'string',
-        'Attribute' => 'string',
-        'op' => 'string',
-        'Value' => 'string',
-        'TcKimlikNo' => 'string'
+        'id'         => 'integer',
+        'UserName'   => 'string',
+        'Attribute'  => 'string',
+        'op'         => 'string',
+        'Value'      => 'string',
+        'TcKimlikNo' => 'string',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
 }

@@ -13,12 +13,12 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed'      => 'These credentials do not match our records.',
+    'throttle'    => 'Too many login attempts. Please try again in :seconds seconds.',
     'remember_me' => 'Remember Me',
-    'header' => 'Sign in to start your session',
-    'email' => 'Email',
-    'password' => 'Password',
-    'sign_in' => 'Sign In',
-    'forgot' => 'I forgot my password',
+    'header'      => 'Sign in to start your session',
+    'email'       => 'Email',
+    'password'    => 'Password',
+    'sign_in'     => 'Sign In',
+    'forgot'      => 'I forgot my password',
 ];

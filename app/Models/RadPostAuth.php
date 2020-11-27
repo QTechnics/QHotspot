@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\RadPostAuth
+ * App\Models\RadPostAuth.
  *
- * @property int $id
+ * @property int    $id
  * @property string $username
  * @property string $pass
  * @property string $reply
  * @property string $authdate
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadPostAuth whereAuthdate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadPostAuth whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RadPostAuth wherePass($value)
@@ -30,7 +30,7 @@ class RadPostAuth extends Model
         'username',
         'pass',
         'reply',
-        'authdate'
+        'authdate',
     ];
 
     /**
@@ -39,20 +39,18 @@ class RadPostAuth extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id'       => 'integer',
         'username' => 'string',
-        'pass' => 'string',
-        'reply' => 'string'
+        'pass'     => 'string',
+        'reply'    => 'string',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
 }

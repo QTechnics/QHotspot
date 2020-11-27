@@ -3,21 +3,20 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 /**
- * App\Models\Nas
+ * App\Models\Nas.
  *
- * @property int $id
+ * @property int    $id
  * @property string $nasname
  * @property string $shortname
  * @property string $type
- * @property int $ports
+ * @property int    $ports
  * @property string $secret
  * @property string $server
  * @property string $community
  * @property string $description
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Nas whereCommunity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Nas whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Nas whereId($value)
@@ -42,7 +41,7 @@ class Nas extends Model
         'ports',
         'secret',
         'community',
-        'description'
+        'description',
     ];
 
     /**
@@ -51,24 +50,22 @@ class Nas extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'nasname' => 'string',
-        'shortname' => 'string',
-        'type' => 'string',
-        'ports' => 'integer',
-        'secret' => 'string',
-        'community' => 'string',
-        'description' => 'string'
+        'id'          => 'integer',
+        'nasname'     => 'string',
+        'shortname'   => 'string',
+        'type'        => 'string',
+        'ports'       => 'integer',
+        'secret'      => 'string',
+        'community'   => 'string',
+        'description' => 'string',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        
-    ];
 
-    
+    ];
 }

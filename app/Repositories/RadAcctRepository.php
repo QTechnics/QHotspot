@@ -6,14 +6,14 @@ use App\Models\RadAcct;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class RadAcctRepository
- * @package App\Repositories
+ * Class RadAcctRepository.
+ *
  * @version September 28, 2017, 10:54 am UTC
  *
  * @method RadAcct findWithoutFail($id, $columns = ['*'])
  * @method RadAcct find($id, $columns = ['*'])
  * @method RadAcct first($columns = ['*'])
-*/
+ */
 class RadAcctRepository extends BaseRepository
 {
     /**
@@ -42,11 +42,11 @@ class RadAcctRepository extends BaseRepository
         'FramedProtocol',
         'FramedIPAddress',
         'AcctStartDelay',
-        'AcctStopDelay'
+        'AcctStopDelay',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

@@ -6,14 +6,14 @@ use App\Models\Nas;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
- * Class NasRepository
- * @package App\Repositories
+ * Class NasRepository.
+ *
  * @version September 28, 2017, 11:01 am UTC
  *
  * @method Nas findWithoutFail($id, $columns = ['*'])
  * @method Nas find($id, $columns = ['*'])
  * @method Nas first($columns = ['*'])
-*/
+ */
 class NasRepository extends BaseRepository
 {
     /**
@@ -26,11 +26,11 @@ class NasRepository extends BaseRepository
         'ports',
         'secret',
         'community',
-        'description'
+        'description',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {
