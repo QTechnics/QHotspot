@@ -4,49 +4,36 @@ error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // Teşekkürler Bülent Gür... www.networkakademi.net
-if ($_SESSION['username'] == "") {
-    header("location:Message.php?id=Yetki");
-}
-else {
-include("inc/db_settings.php");
+if ($_SESSION['username'] == '') {
+    header('location:Message.php?id=Yetki');
+} else {
+    include 'inc/db_settings.php';
 
-$id = !empty($_GET['id']) ? ($_GET['id']) : null;
-
-{
-
-    ?>
+    $id = !empty($_GET['id']) ? ($_GET['id']) : null; ?>
 
 
     <?php
 
-} if ($id == "details"){
-
-
-?>
+ if ($id == 'details') {
+     ?>
 
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
-if ($_SESSION['username'] == "") {
-    header("location:Message.php?id=Yetki");
-}
-else {
+     ini_set('error_reporting', E_ALL ^ E_NOTICE);
+     session_start();
+     // $user1 = $_SESSION['user'];
+     if ($_SESSION['username'] == '') {
+         header('location:Message.php?id=Yetki');
+     } else {
+         include 'inc/db_settings.php';
 
-include("inc/db_settings.php");
+         //sayfa cekiyoruz
+         $sayfa = @$_GET['s'];
 
-//sayfa cekiyoruz
-$sayfa = @$_GET["s"];
-
-// eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
-if (empty($sayfa) || !is_numeric($sayfa)) {
-    $sayfa = 1;
-
-}
-
-
-?>
+         // eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
+         if (empty($sayfa) || !is_numeric($sayfa)) {
+             $sayfa = 1;
+         } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -218,7 +205,7 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 </head>
 <body>
 <!-- Start: page-top-outer -->
-<?php require_once("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
 
 <!-- start content-outer ........................................................................................................................START -->
@@ -251,14 +238,13 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" id="id-form">
                             <?php
                             $userfilter = trim($_POST['userfilter']);
-                            if (empty($userfilter)) {
-                                $userfilter = trim(@$_GET["userfilter"]);
-                            }
-                            $ipfilter = trim($_POST['ipfilter']);
-                            if (empty($ipfilter)) {
-                                $ipfilter = trim(@$_GET["ipfilter"]);
-                            }
-                            ?>
+         if (empty($userfilter)) {
+             $userfilter = trim(@$_GET['userfilter']);
+         }
+         $ipfilter = trim($_POST['ipfilter']);
+         if (empty($ipfilter)) {
+             $ipfilter = trim(@$_GET['ipfilter']);
+         } ?>
                             <tr>
                                 <td width="10"></td>
                                 <td width="100"><h4><br>Kullanıcı Adı</h4></td>
@@ -355,73 +341,71 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <?php
 
-
                                     $kacar = 50;
 
-                                    // ylmz, kullanici filtre eklenmesi
-                                    // *****************************************************************
-                                    $userfilter = trim($_POST['userfilter']);
-                                    if (empty($userfilter)) {
-                                        $userfilter = trim(@$_GET["userfilter"]);
-                                    }
-                                    $ipfilter = trim($_POST['ipfilter']);
-                                    if (empty($ipfilter)) {
-                                        $ipfilter = trim(@$_GET["ipfilter"]);
-                                    }
-                                    $wheretxt = "";
-                                    if (!empty($userfilter) or !empty($ipfilter)) {
-                                        if (!empty($userfilter)) {
-                                            $wheretxt = " where username like '" . $userfilter . "%' ";
-                                        }
-                                        if (!empty($ipfilter)) {
-                                            if (!empty($wheretxt)) {
-                                                $wheretxt = $wheretxt . " and ";
-                                            } else {
-                                                $wheretxt = " where ";
-                                            }
-                                            $wheretxt = $wheretxt . "framedipaddress = '" . $ipfilter . "' ";
-                                        }
-                                    } else {
-                                        $wheretxt = " ";
-                                    }
+         // ylmz, kullanici filtre eklenmesi
+         // *****************************************************************
+         $userfilter = trim($_POST['userfilter']);
+         if (empty($userfilter)) {
+             $userfilter = trim(@$_GET['userfilter']);
+         }
+         $ipfilter = trim($_POST['ipfilter']);
+         if (empty($ipfilter)) {
+             $ipfilter = trim(@$_GET['ipfilter']);
+         }
+         $wheretxt = '';
+         if (!empty($userfilter) or !empty($ipfilter)) {
+             if (!empty($userfilter)) {
+                 $wheretxt = " where username like '".$userfilter."%' ";
+             }
+             if (!empty($ipfilter)) {
+                 if (!empty($wheretxt)) {
+                     $wheretxt = $wheretxt.' and ';
+                 } else {
+                     $wheretxt = ' where ';
+                 }
+                 $wheretxt = $wheretxt."framedipaddress = '".$ipfilter."' ";
+             }
+         } else {
+             $wheretxt = ' ';
+         }
 
-                                    // $ksayisi = mysql_num_rows (mysql_query("select radacctid from radacct"));
-                                    // ylmz, yukaridakinin yerine asagidaki yontem daha hizli sonuc verecektir
-                                    $countquery = mysqli_query($GLOBALS["___mysqli_ston"], "select count(*) as 'reccount' from radacct" . $wheretxt);
-                                    $countquery->data_seek(0);
-                                    $data = $countquery->fetch_array();
-                                    $ksayisi = $data["reccount"];
-                                    // *****************************************************************
+         // $ksayisi = mysql_num_rows (mysql_query("select radacctid from radacct"));
+         // ylmz, yukaridakinin yerine asagidaki yontem daha hizli sonuc verecektir
+         $countquery = mysqli_query($GLOBALS['___mysqli_ston'], "select count(*) as 'reccount' from radacct".$wheretxt);
+         $countquery->data_seek(0);
+         $data = $countquery->fetch_array();
+         $ksayisi = $data['reccount'];
+         // *****************************************************************
 
-                                    $ssayisi = ceil($ksayisi / $kacar);
+         $ssayisi = ceil($ksayisi / $kacar);
 
-                                    $nereden = ($sayfa * $kacar) - $kacar;
+         $nereden = ($sayfa * $kacar) - $kacar;
 
-                                    $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radacct " . $wheretxt . "order by radacctid desc limit $nereden,$kacar");
-                                    while ($goster = mysqli_fetch_array($bul)) {
-                                        extract($goster);
+         $bul = mysqli_query($GLOBALS['___mysqli_ston'], 'select * from radacct '.$wheretxt."order by radacctid desc limit $nereden,$kacar");
+         while ($goster = mysqli_fetch_array($bul)) {
+             extract($goster);
 
-                                        $upload = round($acctinputoctets / 1024 / 1024, 2);
-                                        $download = round($acctoutputoctets / 1024 / 1024, 2);
+             $upload = round($acctinputoctets / 1024 / 1024, 2);
+             $download = round($acctoutputoctets / 1024 / 1024, 2);
 
-                                        if ($acctsessiontime < 60) {
-                                            $sure = $acctsessiontime . " sn";
-                                        } else {
-                                            $gun = floor($acctsessiontime / 86400);
-                                            $saat = floor(($acctsessiontime - $gun * 86400) / 3600);
-                                            $dakika = floor(($acctsessiontime - $gun * 86400 - $saat * 3600) / 60);
-                                            $sure = "";
-                                            if ($dakika > 0) {
-                                                $sure = $dakika . " dk";
-                                            }
-                                            if ($saat > 0) {
-                                                $sure = $saat . " saat " . $sure;
-                                            }
-                                            if ($gun > 0) {
-                                                $sure = $gun . " gün " . $sure;
-                                            }
-                                        }
-                                        ?>
+             if ($acctsessiontime < 60) {
+                 $sure = $acctsessiontime.' sn';
+             } else {
+                 $gun = floor($acctsessiontime / 86400);
+                 $saat = floor(($acctsessiontime - $gun * 86400) / 3600);
+                 $dakika = floor(($acctsessiontime - $gun * 86400 - $saat * 3600) / 60);
+                 $sure = '';
+                 if ($dakika > 0) {
+                     $sure = $dakika.' dk';
+                 }
+                 if ($saat > 0) {
+                     $sure = $saat.' saat '.$sure;
+                 }
+                 if ($gun > 0) {
+                     $sure = $gun.' gün '.$sure;
+                 }
+             } ?>
                                         <tr>
 
                                             <td><?php echo "{$username}"; ?></td>
@@ -434,7 +418,8 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
                                             <td><?php echo "{$sure}"; ?></td>
                                         </tr>
 
-                                    <?php } ?>
+                                    <?php
+         } ?>
 
 
                                 </table>
@@ -460,15 +445,13 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <div id="page-info">Sayfalar <strong><?php
 
-                                            $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radacct" . $wheretxt . "order by radacctid desc limit $nereden,$kacar");
-                                            for ($i = 1; $i < $ssayisi; $i++) { ?>
+                                            $bul = mysqli_query($GLOBALS['___mysqli_ston'], 'select * from radacct'.$wheretxt."order by radacctid desc limit $nereden,$kacar");
+         for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
                                                 <?php
                                                 echo "<a href='Logs.php?id=details&userfilter={$userfilter}&ipfilter={$ipfilter}&s={$i} '> {$i} -</a>";
-                                            }
-
-                                            ?>
+                                            } ?>
 
 
                                         </strong></div>
@@ -505,39 +488,30 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
 <?php
 
-require_once("inc/footer.php");
-
-
-} ?>
+require_once 'inc/footer.php';
+     } ?>
 
 <?php
-
-} if ($id == "access"){
-
-?>
+ }
+    if ($id == 'access') {
+        ?>
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
-if ($_SESSION['username'] == "") {
-    header("location:Message.php?id=Yetki");
-}
-else {
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        session_start();
+        // $user1 = $_SESSION['user'];
+        if ($_SESSION['username'] == '') {
+            header('location:Message.php?id=Yetki');
+        } else {
+            include 'inc/db_settings.php';
 
-include("inc/db_settings.php");
+            //sayfa cekiyoruz
+            $sayfa = @$_GET['s'];
 
-//sayfa cekiyoruz
-$sayfa = @$_GET["s"];
-
-// eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
-if (empty($sayfa) || !is_numeric($sayfa)) {
-    $sayfa = 1;
-
-}
-
-
-?>
+            // eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
+            if (empty($sayfa) || !is_numeric($sayfa)) {
+                $sayfa = 1;
+            } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -708,7 +682,7 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 </head>
 <body>
 <!-- Start: page-top-outer -->
-<?php require_once("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
 
 <!-- start content-outer ........................................................................................................................START -->
@@ -745,10 +719,9 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
                                     <h4><br>Kullanıcı Adı<h4>
                                 </td>
                                 <?php $userfilter = trim($_POST['userfilter']);
-                                if (empty($userfilter)) {
-                                    $userfilter = trim(@$_GET["userfilter"]);
-                                }
-                                ?>
+            if (empty($userfilter)) {
+                $userfilter = trim(@$_GET['userfilter']);
+            } ?>
                                 <td width="100"><input type="text" name="userfilter" class="inp-form"
                                                        value="<?php echo $userfilter; ?>"/></td>
                                 <td width="10"></td>
@@ -830,39 +803,34 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <?php
 
-
                                     $kacar = 50;
 
-                                    // ylmz, kullanici filtre eklenmesi
-                                    // *****************************************************************
-                                    $userfilter = trim($_POST['userfilter']);
-                                    if (empty($userfilter)) {
-                                        $userfilter = trim(@$_GET["userfilter"]);
-                                    }
-                                    $wheretxt = " ";
-                                    if (!empty($userfilter)) {
-                                        $wheretxt = " where username like '" . $userfilter . "%' ";
-                                    }
+            // ylmz, kullanici filtre eklenmesi
+            // *****************************************************************
+            $userfilter = trim($_POST['userfilter']);
+            if (empty($userfilter)) {
+                $userfilter = trim(@$_GET['userfilter']);
+            }
+            $wheretxt = ' ';
+            if (!empty($userfilter)) {
+                $wheretxt = " where username like '".$userfilter."%' ";
+            }
 
-                                    // $ksayisi = mysql_num_rows (mysql_query("select id from radpostauth"));
-                                    // ylmz, yukaridakinin yerine asagidaki yontem daha hizli sonuc verecektir
-                                    $countquery = mysqli_query($GLOBALS["___mysqli_ston"], "select count(*) as 'reccount' from radpostauth" . $wheretxt);
-                                    $countquery->data_seek(0);
-                                    $data = $countquery->fetch_array();
-                                    $ksayisi = $data["reccount"];
-                                    // *****************************************************************
+            // $ksayisi = mysql_num_rows (mysql_query("select id from radpostauth"));
+            // ylmz, yukaridakinin yerine asagidaki yontem daha hizli sonuc verecektir
+            $countquery = mysqli_query($GLOBALS['___mysqli_ston'], "select count(*) as 'reccount' from radpostauth".$wheretxt);
+            $countquery->data_seek(0);
+            $data = $countquery->fetch_array();
+            $ksayisi = $data['reccount'];
+            // *****************************************************************
 
+            $ssayisi = ceil($ksayisi / $kacar);
 
-                                    $ssayisi = ceil($ksayisi / $kacar);
+            $nereden = ($sayfa * $kacar) - $kacar;
 
-                                    $nereden = ($sayfa * $kacar) - $kacar;
-
-                                    $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radpostauth" . $wheretxt . "order by id desc limit $nereden,$kacar");
-                                    while ($goster = mysqli_fetch_array($bul)) {
-                                        extract($goster);
-
-
-                                        ?>
+            $bul = mysqli_query($GLOBALS['___mysqli_ston'], 'select * from radpostauth'.$wheretxt."order by id desc limit $nereden,$kacar");
+            while ($goster = mysqli_fetch_array($bul)) {
+                extract($goster); ?>
                                         <tr>
 
                                             <td><?php echo "{$username}"; ?></td>
@@ -872,7 +840,8 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                         </tr>
 
-                                    <?php } ?>
+                                    <?php
+            } ?>
 
 
                                 </table>
@@ -898,15 +867,13 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <div id="page-info">Sayfalar <strong><?php
 
-                                            $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radpostauth" . $wheretxt . "order by id desc limit $nereden,$kacar");
-                                            for ($i = 1; $i < $ssayisi; $i++) { ?>
+                                            $bul = mysqli_query($GLOBALS['___mysqli_ston'], 'select * from radpostauth'.$wheretxt."order by id desc limit $nereden,$kacar");
+            for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
                                                 <?php
                                                 echo "<a href='Logs.php?id=access&userfilter={$userfilter}&s={$i} '> {$i} -</a>";
-                                            }
-
-                                            ?>
+                                            } ?>
 
 
                                         </strong></div>
@@ -943,37 +910,30 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
 <?php
 
-require_once("inc/footer.php");
-
-} ?>
+require_once 'inc/footer.php';
+        } ?>
 
 
 <?php
-
-} if ($id == "sms"){
-?>
+    }
+    if ($id == 'sms') {
+        ?>
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
-if ($_SESSION['username'] == "") {
-    header("location:Message.php?id=Yetki");
-}
-else {
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        session_start();
+        // $user1 = $_SESSION['user'];
+        if ($_SESSION['username'] == '') {
+            header('location:Message.php?id=Yetki');
+        } else {
+            include 'inc/db_settings.php';
 
-include("inc/db_settings.php");
-
-//sayfa cekiyoruz
-$sayfa = @$_GET["s"];
-// eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
-if (empty($sayfa) || !is_numeric($sayfa)) {
-    $sayfa = 1;
-
-}
-
-
-?>
+            //sayfa cekiyoruz
+            $sayfa = @$_GET['s'];
+            // eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
+            if (empty($sayfa) || !is_numeric($sayfa)) {
+                $sayfa = 1;
+            } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -1144,7 +1104,7 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 </head>
 <body>
 <!-- Start: page-top-outer -->
-<?php require_once("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
 
 <!-- start content-outer ........................................................................................................................START -->
@@ -1239,21 +1199,17 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <?php
 
-
                                     $kacar = 50;
 
-                                    $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS["___mysqli_ston"], "select id from log"));
+            $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS['___mysqli_ston'], 'select id from log'));
 
-                                    $ssayisi = ceil($ksayisi / $kacar);
+            $ssayisi = ceil($ksayisi / $kacar);
 
-                                    $nereden = ($sayfa * $kacar) - $kacar;
+            $nereden = ($sayfa * $kacar) - $kacar;
 
-                                    $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from log order by id desc limit $nereden,$kacar");
-                                    while ($goster = mysqli_fetch_array($bul)) {
-                                        extract($goster);
-
-
-                                        ?>
+            $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from log order by id desc limit $nereden,$kacar");
+            while ($goster = mysqli_fetch_array($bul)) {
+                extract($goster); ?>
                                         <tr>
 
                                             <td><?php echo "{$ad} {$soyad}"; ?></td>
@@ -1266,23 +1222,22 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
                                                 <?php
 
                                                 switch ($hata) {
-                                                    case "0":
-                                                        echo "Başarılı";
+                                                    case '0':
+                                                        echo 'Başarılı';
                                                         break;
-                                                    case "1":
-                                                        echo "Başarısız";
+                                                    case '1':
+                                                        echo 'Başarısız';
                                                         break;
 
-
-                                                }
-                                                ?>
+                                                } ?>
 
                                             </td>
 
 
                                         </tr>
 
-                                    <?php } ?>
+                                    <?php
+            } ?>
 
 
                                 </table>
@@ -1307,15 +1262,13 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
                                     <div id="page-info">Sayfalar <strong><?php
 
-                                            $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from log order by id desc limit $nereden,$kacar");
-                                            for ($i = 1; $i < $ssayisi; $i++) { ?>
+                                            $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from log order by id desc limit $nereden,$kacar");
+            for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
                                                 <?php
                                                 echo "<a href='Logs.php?id=sms&s={$i} '> {$i} -</a>";
-                                            }
-
-                                            ?>
+                                            } ?>
 
 
                                         </strong></div>
@@ -1352,15 +1305,14 @@ if (empty($sayfa) || !is_numeric($sayfa)) {
 
 <?php
 
-require_once("inc/footer.php");
-
-} ?>
+require_once 'inc/footer.php';
+        } ?>
 
 
 
 
 <?php
-}
+    }
 }
 
 ?>

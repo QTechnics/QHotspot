@@ -1,47 +1,36 @@
 <?php
-ob_start(); 
+ob_start();
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php"); 
+ if ($_SESSION['username'] == '') {
+     header('location:Message.php?id=Yetki');
+ } else {
+    include 'inc/db_settings.php';
 
-$id = !empty($_GET['id']) ? ($_GET['id']) : null;
-
-{
-	
-?>
+    $id = !empty($_GET['id']) ? ($_GET['id']) : null; ?>
 
 	
 	<?php
-	
-} if($id == "ghost"){
- 
 
- 
-
-               ?>
+ if ($id == 'ghost') {
+     ?>
 						 
 		<?php
-		
+
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php");
-$sayfa = @$_GET["s"];
-if (empty($sayfa) || !is_numeric ($sayfa)) {
-$sayfa=1;
-}
-?>
+     ini_set('error_reporting', E_ALL ^ E_NOTICE);
+     session_start();
+     // Teşekkürler Bülent Gür... www.networkakademi.net
+     if ($_SESSION['username'] == '') {
+         header('location:Message.php?id=Yetki');
+     } else {
+         include 'inc/db_settings.php';
+         $sayfa = @$_GET['s'];
+         if (empty($sayfa) || !is_numeric($sayfa)) {
+             $sayfa = 1;
+         } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -218,7 +207,7 @@ $(document).pngFix( );
 </head>
 <body> 
 <!-- Start: page-top-outer -->
-<?php require_once ("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
  
 <!-- start content-outer ........................................................................................................................START -->
@@ -310,22 +299,18 @@ $(document).pngFix( );
 
 				
 				<?php
-				
 
 $kacar = 50;
 
-$ksayisi = mysqli_num_rows(mysqli_query($GLOBALS["___mysqli_ston"], "select id from radcheck WHERE  tip='1'   "));
+         $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS['___mysqli_ston'], "select id from radcheck WHERE  tip='1'   "));
 
-$ssayisi = ceil ($ksayisi/$kacar);
+         $ssayisi = ceil($ksayisi / $kacar);
 
-$nereden = ($sayfa*$kacar) -$kacar;
+         $nereden = ($sayfa * $kacar) - $kacar;
 
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck WHERE  tip='1' order by id desc limit $nereden,$kacar");
-while ($goster = mysqli_fetch_array($bul)) {
-extract ($goster);
-				
-				
-				?>
+         $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck WHERE  tip='1' order by id desc limit $nereden,$kacar");
+         while ($goster = mysqli_fetch_array($bul)) {
+             extract($goster); ?>
 				<tr>
 				
 			
@@ -341,7 +326,8 @@ extract ($goster);
 					</td>
 				</tr>
 
-<?php } ?>
+<?php
+         } ?>
 
 
 
@@ -365,15 +351,13 @@ extract ($goster);
 				
 				<div id="page-info">Sayfalar <strong><?php
 
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck order by id desc limit $nereden,$kacar");
-for ($i=1; $i < $ssayisi; $i++) { ?>
+$bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck order by id desc limit $nereden,$kacar");
+         for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
 <?php
 echo "<a href='Users.php?id=ghost&s={$i} '> {$i} -</a>";
-}
-
-?>
+} ?>
 
 
  </strong> </div>
@@ -411,41 +395,29 @@ echo "<a href='Users.php?id=ghost&s={$i} '> {$i} -</a>";
 
 <?php
 
-require_once ("inc/footer.php");
-
-
- }?>				 
+require_once 'inc/footer.php';
+     } ?>				 
 						 
 	<?php
-	
-} if($id == "tc"){
- 
-   ?>
+ }
+    if ($id == 'tc') {
+        ?>
 
      <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// Teşekkürler Uğur Demir www.ugurdemir.com
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	
-	include ("inc/db_settings.php");
-$sayfa = @$_GET["s"];
-if (empty($sayfa) || !is_numeric ($sayfa)) {
-$sayfa=1;
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        session_start();
+        // Teşekkürler Uğur Demir www.ugurdemir.com
+        if ($_SESSION['username'] == '') {
+            header('location:Message.php?id=Yetki');
+        } else {
+            include 'inc/db_settings.php';
+            $sayfa = @$_GET['s'];
+            if (empty($sayfa) || !is_numeric($sayfa)) {
+                $sayfa = 1;
+            }
 
-}
-
-
-// Powered by Samet 
-
-
-
-
-?>
+            // Powered by Samet ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -622,7 +594,7 @@ $(document).pngFix( );
 </head>
 <body> 
 <!-- Start: page-top-outer -->
-<?php require_once ("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
  
 <!-- start content-outer ........................................................................................................................START -->
@@ -714,22 +686,18 @@ $(document).pngFix( );
 
 				
 				<?php
-				
 
 $kacar = 50;
 
-$ksayisi = mysqli_num_rows(mysqli_query($GLOBALS["___mysqli_ston"], "select id from radcheck WHERE  tip='2'   "));
+            $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS['___mysqli_ston'], "select id from radcheck WHERE  tip='2'   "));
 
-$ssayisi = ceil ($ksayisi/$kacar);
+            $ssayisi = ceil($ksayisi / $kacar);
 
-$nereden = ($sayfa*$kacar) -$kacar;
+            $nereden = ($sayfa * $kacar) - $kacar;
 
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck WHERE  tip='2' order by id desc limit $nereden,$kacar");
-while ($goster = mysqli_fetch_array($bul)) {
-extract ($goster);
-				
-				
-				?>
+            $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck WHERE  tip='2' order by id desc limit $nereden,$kacar");
+            while ($goster = mysqli_fetch_array($bul)) {
+                extract($goster); ?>
 				<tr>
 				
 			
@@ -745,7 +713,8 @@ extract ($goster);
 					</td>
 				</tr>
 
-<?php } ?>
+<?php
+            } ?>
 
 
 
@@ -769,15 +738,13 @@ extract ($goster);
 				
 				<div id="page-info">Sayfalar <strong><?php
 
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck order by id desc limit $nereden,$kacar");
-for ($i=1; $i < $ssayisi; $i++) { ?>
+$bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck order by id desc limit $nereden,$kacar");
+            for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
 <?php
 echo "<a href='Users.php?id=tc&s={$i} '> {$i} -</a>";
-}
-
-?>
+} ?>
 
 
  </strong> </div>
@@ -815,45 +782,31 @@ echo "<a href='Users.php?id=tc&s={$i} '> {$i} -</a>";
 
 <?php
 
-require_once ("inc/footer.php");
-
-
- }?>      
+require_once 'inc/footer.php';
+        } ?>      
 
 	<?php
-	
-} if($id == "sms"){
-
-  ?>
+    }
+    if ($id == 'sms') {
+        ?>
 
 
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	
-	include ("inc/db_settings.php");
-	
-//sayfa cekiyoruz
-$sayfa = @$_GET["s"];
-// eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
-if (empty($sayfa) || !is_numeric ($sayfa)) {
-$sayfa=1;
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        session_start();
+        // $user1 = $_SESSION['user'];
+        if ($_SESSION['username'] == '') {
+            header('location:Message.php?id=Yetki');
+        } else {
+            include 'inc/db_settings.php';
 
-}
-
-
-
-
-
-
-
-?>
+            //sayfa cekiyoruz
+            $sayfa = @$_GET['s'];
+            // eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
+            if (empty($sayfa) || !is_numeric($sayfa)) {
+                $sayfa = 1;
+            } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -1030,7 +983,7 @@ $(document).pngFix( );
 </head>
 <body> 
 <!-- Start: page-top-outer -->
-<?php require_once ("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
  
 <!-- start content-outer ........................................................................................................................START -->
@@ -1122,22 +1075,18 @@ $(document).pngFix( );
 
 				
 				<?php
-				
 
 $kacar = 50;
 
-$ksayisi = mysqli_num_rows(mysqli_query($GLOBALS["___mysqli_ston"], "select id from radcheck WHERE  tip='3'   "));
+            $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS['___mysqli_ston'], "select id from radcheck WHERE  tip='3'   "));
 
-$ssayisi = ceil ($ksayisi/$kacar);
+            $ssayisi = ceil($ksayisi / $kacar);
 
-$nereden = ($sayfa*$kacar) -$kacar;
-mysqli_query($GLOBALS["___mysqli_ston"], "SET NAMES UTF8");
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck WHERE  tip='3' order by id desc limit $nereden,$kacar");
-while ($goster = mysqli_fetch_array($bul)) {
-extract ($goster);
-				
-				
-				?>
+            $nereden = ($sayfa * $kacar) - $kacar;
+            mysqli_query($GLOBALS['___mysqli_ston'], 'SET NAMES UTF8');
+            $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck WHERE  tip='3' order by id desc limit $nereden,$kacar");
+            while ($goster = mysqli_fetch_array($bul)) {
+                extract($goster); ?>
 				<tr>
 				
 			
@@ -1152,7 +1101,8 @@ extract ($goster);
 					</td>
 				</tr>
 
-<?php } ?>
+<?php
+            } ?>
 
 
 
@@ -1176,15 +1126,13 @@ extract ($goster);
 				
 				<div id="page-info">Sayfalar <strong><?php
 
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radcheck order by id desc limit $nereden,$kacar");
-for ($i=1; $i < $ssayisi; $i++) { ?>
+$bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radcheck order by id desc limit $nereden,$kacar");
+            for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
 <?php
 echo "<a href='Users.php?id=sms&s={$i} '> {$i} -</a>";
-}
-
-?>
+} ?>
 
 
  </strong> </div>
@@ -1222,119 +1170,90 @@ echo "<a href='Users.php?id=sms&s={$i} '> {$i} -</a>";
 
 <?php
 
-require_once ("inc/footer.php");
-
-
- }?>
+require_once 'inc/footer.php';
+        } ?>
 
  
  	<?php
-	
-} if($id == "Delete"){
- 
-   
-   
-   
-   ?>
+    }
+    if ($id == 'Delete') {
+        ?>
 <?php
 session_start();
-  error_reporting(E_ALL ^ E_NOTICE);
-  ini_set('error_reporting', E_ALL ^ E_NOTICE);
-// $user1 = $_SESSION['user'];
-	include ("inc/db_settings.php");
+        error_reporting(E_ALL ^ E_NOTICE);
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        // $user1 = $_SESSION['user'];
+        include 'inc/db_settings.php';
 
-if($_GET["sil"])
-{
-    $id = $_GET["sil"];
+        if ($_GET['sil']) {
+            $id = $_GET['sil'];
 
-	
-    $sil ="DELETE FROM radcheck WHERE id='$id'";
-    $sorgu=mysqli_query($GLOBALS["___mysqli_ston"], $sil);
-	
-	
-    
-if($sorgu){
-header("location:Message.php?id=Basarili");
+            $sil = "DELETE FROM radcheck WHERE id='$id'";
+            $sorgu = mysqli_query($GLOBALS['___mysqli_ston'], $sil);
 
- }else{
-header("location:Message.php?id=Hata");
-    }}
-
-
-
-
-
-?>
+            if ($sorgu) {
+                header('location:Message.php?id=Basarili');
+            } else {
+                header('location:Message.php?id=Hata');
+            }
+        } ?>
  	<?php
-	
-} if($id == "UserSave"){
-   
-   ?>
-<?php
-   
-           $id = $_GET["Save"]; 
-                   
-$username=$_POST['username'];
-$value=$_POST['value'];
-$adsoyad=$_POST['adsoyad'];
-$telefon=$_POST['telefon'];
-$tcno=$_POST['tcno'];
-$dtarih=$_POST['dtarih'];
-$degis=mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE radcheck SET username='$username',value='$value',adsoyad='$adsoyad',telefon='$telefon',tcno='$tcno',dtarih='$dtarih' WHERE id='$id'   ") or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-if($degis){
-header("location:Message.php?id=Basarili");
-
- }else{
-header("location:Message.php?id=Hata");
     }
+    if ($id == 'UserSave') {
+        ?>
+<?php
 
-?>
+           $id = $_GET['Save'];
+
+        $username = $_POST['username'];
+        $value = $_POST['value'];
+        $adsoyad = $_POST['adsoyad'];
+        $telefon = $_POST['telefon'];
+        $tcno = $_POST['tcno'];
+        $dtarih = $_POST['dtarih'];
+        $degis = mysqli_query($GLOBALS['___mysqli_ston'], "UPDATE radcheck SET username='$username',value='$value',adsoyad='$adsoyad',telefon='$telefon',tcno='$tcno',dtarih='$dtarih' WHERE id='$id'   ") or exit(((is_object($GLOBALS['___mysqli_ston'])) ? mysqli_error($GLOBALS['___mysqli_ston']) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+        if ($degis) {
+            header('location:Message.php?id=Basarili');
+        } else {
+            header('location:Message.php?id=Hata');
+        } ?>
 
 
 
 
 
  	<?php
-	
-} if($id == "Useredit"){
- 
-   
-   
-   
-   ?>
+    }
+    if ($id == 'Useredit') {
+        ?>
        
  <?php
 
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	
-	include ("inc/db_settings.php");
+        ini_set('error_reporting', E_ALL ^ E_NOTICE);
+        session_start();
+        // $user1 = $_SESSION['user'];
+        if ($_SESSION['username'] == '') {
+            header('location:Message.php?id=Yetki');
+        } else {
+            include 'inc/db_settings.php';
 
+            require_once 'inc/header.php';
 
+            $id = $_GET['edit'];
 
-require_once ("inc/header.php");
-
-$id = $_GET["edit"];
-
-$sql = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM radcheck WHERE id='$id'"); 
-while($row=mysqli_fetch_array($sql)) {
-$id = $row["id"]; 
-$username = $row["username"]; 
-$attribute = $row["attribute"]; 
-$op = $row["op"];
-$value = $row["value"];
-$telefon = $row["telefon"];
-$tcno = $row["tcno"];
-$adsoyad = $row["adsoyad"];
-$dtarih = $row["dtarih"];
-  }
-?>
+            $sql = mysqli_query($GLOBALS['___mysqli_ston'], "SELECT * FROM radcheck WHERE id='$id'");
+            while ($row = mysqli_fetch_array($sql)) {
+                $id = $row['id'];
+                $username = $row['username'];
+                $attribute = $row['attribute'];
+                $op = $row['op'];
+                $value = $row['value'];
+                $telefon = $row['telefon'];
+                $tcno = $row['tcno'];
+                $adsoyad = $row['adsoyad'];
+                $dtarih = $row['dtarih'];
+            } ?>
 
 <!-- start content-outer -->
 <div id="content-outer">
@@ -1364,7 +1283,7 @@ $dtarih = $row["dtarih"];
 	<td>
 
 	
-		<form action="Users.php?id=UserSave&Save=<?=$id;?>" method="POST" >
+		<form action="Users.php?id=UserSave&Save=<?=$id; ?>" method="POST" >
 		<table width="600" border="0" cellpadding="0" cellspacing="0"  id="id-form">
   <th width="394" valign="top">Özellikler</th>
 		
@@ -1374,14 +1293,14 @@ $dtarih = $row["dtarih"];
 		
 										<tr>
 			<th valign="top">Ad Soyad:</th>
-			<td><input type="text" name="adsoyad" value="<?=$adsoyad;?>"  class="inp-form" /></td>
+			<td><input type="text" name="adsoyad" value="<?=$adsoyad; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
 		
 		<tr>
 			<th valign="top">Kullanıcı Adı </th>
-			<td><input type="text" name="username" value="<?=$username;?>"  class="inp-form" />
+			<td><input type="text" name="username" value="<?=$username; ?>"  class="inp-form" />
 			</td>
 			<td></td>
 		</tr>
@@ -1389,7 +1308,7 @@ $dtarih = $row["dtarih"];
 		
 						<tr>
 			<th valign="top">Şifre:</th>
-			<td><input type="text" name="value" value="<?=$value;?>"  class="inp-form" /></td>
+			<td><input type="text" name="value" value="<?=$value; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
@@ -1471,16 +1390,16 @@ $dtarih = $row["dtarih"];
 <div class="clear">&nbsp;</div>
     
 <?php
-require_once ("inc/footer.php");
-?>
-<?php } ?>
+require_once 'inc/footer.php'; ?>
+<?php
+        } ?>
  
  
  
 
 
 		   <?php
-                        }
-                        }
-                       ob_end_flush();  
+    }
+}
+                       ob_end_flush();
 ?>

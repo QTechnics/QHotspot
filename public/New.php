@@ -4,34 +4,22 @@ error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php"); 
+ if ($_SESSION['username'] == '') {
+     header('location:Message.php?id=Yetki');
+ } else {
+    include 'inc/db_settings.php';
 
-$id = !empty($_GET['id']) ? ($_GET['id']) : null;
-
-{
-	
-?>
+    $id = !empty($_GET['id']) ? ($_GET['id']) : null; ?>
 
 	
 	<?php
-	
-} if($id == "attribute"){
- 
 
- 
-
-               ?>
+ if ($id == 'attribute') {
+     ?>
 						 
 <?php
 
-require_once ("inc/header.php");
-
-
-?>
+require_once 'inc/header.php'; ?>
  
 <!-- start content-outer -->
 <div id="content-outer">
@@ -322,20 +310,15 @@ Eğer biz yeni bir kullanıcı oluşturmak istersek aşağıdaki şekilde RadChe
 <div class="clear">&nbsp;</div>
     
 <?php
-require_once ("inc/footer.php");
-?>
+require_once 'inc/footer.php'; ?>
 						 
 	<?php
-	
-} if($id == "useradd"){
- 
-   ?>
+ }
+    if ($id == 'useradd') {
+        ?>
 <?php
 
-require_once ("inc/header.php");
-
-
-?>
+require_once 'inc/header.php'; ?>
 
 <!-- start content-outer -->
 <div id="content-outer">
@@ -665,22 +648,20 @@ require_once ("inc/header.php");
 <div class="clear">&nbsp;</div>
     
 <?php
-require_once ("inc/footer.php");
-?>
+require_once 'inc/footer.php'; ?>
      
 
 	<?php
-	
-} if($id == "sms"){
-
-  ?>
+    }
+    if ($id == 'sms') {
+        ?>
 
 
 sms
 
 
 		   <?php
-                        }
-                        }
-                    
+    }
+}
+
 ?>

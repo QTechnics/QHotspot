@@ -1,47 +1,36 @@
 <?php
-ob_start(); 
+ob_start();
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php"); 
+ if ($_SESSION['username'] == '') {
+     header('location:Message.php?id=Yetki');
+ } else {
+    include 'inc/db_settings.php';
 
-$id = !empty($_GET['id']) ? ($_GET['id']) : null;
-
-{
-	
-?>
+    $id = !empty($_GET['id']) ? ($_GET['id']) : null; ?>
 
 	
 	<?php
-	
-} if($id == "Sonuc"){
- 
 
- 
-
-               ?>
+ if ($id == 'Sonuc') {
+     ?>
 						 
 		<?php
-		
+
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php");
-$sayfa = @$_GET["s"];
-if (empty($sayfa) || !is_numeric ($sayfa)) {
-$sayfa=1;
-}
-?>
+     ini_set('error_reporting', E_ALL ^ E_NOTICE);
+     session_start();
+     // Teşekkürler Bülent Gür... www.networkakademi.net
+     if ($_SESSION['username'] == '') {
+         header('location:Message.php?id=Yetki');
+     } else {
+         include 'inc/db_settings.php';
+         $sayfa = @$_GET['s'];
+         if (empty($sayfa) || !is_numeric($sayfa)) {
+             $sayfa = 1;
+         } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -218,7 +207,7 @@ $(document).pngFix( );
 </head>
 <body> 
 <!-- Start: page-top-outer -->
-<?php require_once ("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
  
 <!-- start content-outer ........................................................................................................................START -->
@@ -267,17 +256,14 @@ $(document).pngFix( );
 
 	
 				<?php
-				
-$ara = $_POST['ara'];
-$bul = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM radcheck WHERE  username like '$ara' and attribute='Cleartext-Password' ");
-$bulunan=0;
-while ($goster = mysqli_fetch_array($bul)) {
-$bulunan++;
 
-extract ($goster);
-				
-				
-				?>
+$ara = $_POST['ara'];
+         $bul = mysqli_query($GLOBALS['___mysqli_ston'], "SELECT * FROM radcheck WHERE  username like '$ara' and attribute='Cleartext-Password' ");
+         $bulunan = 0;
+         while ($goster = mysqli_fetch_array($bul)) {
+             $bulunan++;
+
+             extract($goster); ?>
 				<tr>
 				
 			
@@ -291,21 +277,18 @@ extract ($goster);
 												
 												<?php
 
-switch ($tip)
-{
-case "1":
-  echo "GHOST";
+switch ($tip) {
+case '1':
+  echo 'GHOST';
   break;
-case "2":
-  echo "TC KIMLIK";
+case '2':
+  echo 'TC KIMLIK';
   break;
-case "3":
-  echo "SMS AUTH.";
+case '3':
+  echo 'SMS AUTH.';
   break;
 
-}
-
-?>
+} ?>
 											
 												</td>
 
@@ -316,12 +299,12 @@ case "3":
 					</td>
 				</tr>
 <?php
-												
-	} 
-if ($bulunan==0) {echo "Hic bir kayit bulunamadi."; }	
-
-?>	
-<?php } ?>
+         }
+         if ($bulunan == 0) {
+             echo 'Hic bir kayit bulunamadi.';
+         } ?>	
+<?php
+     } ?>
 
 
 
@@ -381,47 +364,32 @@ if ($bulunan==0) {echo "Hic bir kayit bulunamadi."; }
 
 <?php
 
-require_once ("inc/footer.php");
-
-
- }?>				 
+require_once 'inc/footer.php';
+ } ?>				 
 						 
 	
 
 	<?php
-	
-} if($id == "Ara"){
-
-  ?>
+} if ($id == 'Ara') {
+     ?>
 
 
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('error_reporting', E_ALL ^ E_NOTICE);
-session_start();
-// $user1 = $_SESSION['user'];
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	
-	include ("inc/db_settings.php");
-	
-//sayfa cekiyoruz
-$sayfa = @$_GET["s"];
-// eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
-if (empty($sayfa) || !is_numeric ($sayfa)) {
-$sayfa=1;
+     ini_set('error_reporting', E_ALL ^ E_NOTICE);
+     session_start();
+     // $user1 = $_SESSION['user'];
+     if ($_SESSION['username'] == '') {
+         header('location:Message.php?id=Yetki');
+     } else {
+         include 'inc/db_settings.php';
 
-}
-
-
-
-
-
-
-
-?>
+         //sayfa cekiyoruz
+         $sayfa = @$_GET['s'];
+         // eğer sayfa sayısı boşssa yada sayı değilse numaraya yönlendir
+         if (empty($sayfa) || !is_numeric($sayfa)) {
+             $sayfa = 1;
+         } ?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -598,7 +566,7 @@ $(document).pngFix( );
 </head>
 <body> 
 <!-- Start: page-top-outer -->
-<?php require_once ("inc/menu.php"); ?>
+<?php require_once 'inc/menu.php'; ?>
 
  
 <!-- start content-outer ........................................................................................................................START -->
@@ -722,10 +690,8 @@ $(document).pngFix( );
 
 <?php
 
-require_once ("inc/footer.php");
-
-
- }?>
+require_once 'inc/footer.php';
+     } ?>
 
  
 
@@ -744,7 +710,6 @@ require_once ("inc/footer.php");
 
 
 		   <?php
-                     
-                        }
-                       ob_end_flush();  
+ }
+                       ob_end_flush();
 ?>

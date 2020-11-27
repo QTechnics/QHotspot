@@ -3,19 +3,16 @@ error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // $user1 = $_SESSION['user'];
-if ($_SESSION['username'] == "") {
-    header("location:Login.php");
+if ($_SESSION['username'] == '') {
+    header('location:Login.php');
 } else {
+    include 'inc/db_settings.php';
+    require_once 'inc/header.php';
 
-    include("inc/db_settings.php");
-    require_once("inc/header.php");
-
-
-    $sayfa = @$_GET["s"];
+    $sayfa = @$_GET['s'];
     if (empty($sayfa) || !is_numeric($sayfa)) {
         $sayfa = 1;
-    }
-    ?>
+    } ?>
 
 
     <!-- start content-outer ........................................................................................................................START -->
@@ -100,21 +97,17 @@ if ($_SESSION['username'] == "") {
 
                                     <?php
 
-
                                     $kacar = 50;
 
-                                    $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM radacct WHERE acctstoptime IS NULL"));
+    $ksayisi = mysqli_num_rows(mysqli_query($GLOBALS['___mysqli_ston'], 'SELECT * FROM radacct WHERE acctstoptime IS NULL'));
 
-                                    $ssayisi = ceil($ksayisi / $kacar);
+    $ssayisi = ceil($ksayisi / $kacar);
 
-                                    $nereden = ($sayfa * $kacar) - $kacar;
+    $nereden = ($sayfa * $kacar) - $kacar;
 
-                                    $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radacct WHERE acctstoptime IS NULL order by radacctid desc limit $nereden,$kacar");
-                                    while ($goster = mysqli_fetch_array($bul)) {
-                                        extract($goster);
-
-
-                                        ?>
+    $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radacct WHERE acctstoptime IS NULL order by radacctid desc limit $nereden,$kacar");
+    while ($goster = mysqli_fetch_array($bul)) {
+        extract($goster); ?>
                                         <tr>
 
 
@@ -125,7 +118,8 @@ if ($_SESSION['username'] == "") {
                                         </tr>
 
 
-                                    <?php } ?>
+                                    <?php
+    } ?>
 
 
                                 </table>
@@ -145,15 +139,13 @@ if ($_SESSION['username'] == "") {
 
                                         <div id="page-info">Sayfalar <strong><?php
 
-                                                $bul = mysqli_query($GLOBALS["___mysqli_ston"], "select * from radacct order by radacctid desc limit $nereden,$kacar");
-                                                for ($i = 1; $i < $ssayisi; $i++) { ?>
+                                                $bul = mysqli_query($GLOBALS['___mysqli_ston'], "select * from radacct order by radacctid desc limit $nereden,$kacar");
+    for ($i = 1; $i < $ssayisi; $i++) { ?>
 
 
                                                     <?php
                                                     echo "<a href='index.php?s={$i} '> {$i} -</a>";
-                                                }
-
-                                                ?>
+                                                } ?>
 
 
                                             </strong></div>
@@ -191,6 +183,5 @@ if ($_SESSION['username'] == "") {
 
 
     <?php
-    require_once("inc/footer.php");
-
+    require_once 'inc/footer.php';
 } ?>

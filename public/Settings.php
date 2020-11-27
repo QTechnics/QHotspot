@@ -4,47 +4,33 @@ error_reporting(E_ALL ^ E_NOTICE);
 ini_set('error_reporting', E_ALL ^ E_NOTICE);
 session_start();
 // Teşekkürler Bülent Gür... www.networkakademi.net
- if ($_SESSION['username'] == "") {
-header("location:Message.php?id=Yetki");
-}
-else {
-	include ("inc/db_settings.php"); 
+ if ($_SESSION['username'] == '') {
+     header('location:Message.php?id=Yetki');
+ } else {
+    include 'inc/db_settings.php';
 
-$id = !empty($_GET['id']) ? ($_GET['id']) : null;
-
-{
-	
-?>
+    $id = !empty($_GET['id']) ? ($_GET['id']) : null; ?>
 
 	
 	<?php
-	
-} if($id == "general"){
- 
 
- 
-
-               ?>
+ if ($id == 'general') {
+     ?>
 	<?php
 
-require_once ("inc/header.php");
+require_once 'inc/header.php';
 
-$sql = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM ghost_settings"); 
-while($row=mysqli_fetch_array($sql)) {
-$dayssms = $row["dayssms"];
-$maxsmstime = $row["maxsmstime"];  
-$passwordexptime = $row["passwordexptime"];  
-$smsuser = $row["smsuser"];  
-$smspass = $row["smspass"];  
-$smsno = $row["smsno"];  
-$mesaj = $row["mesaj"];  
-$apiurl = $row["apiurl"];  
-
-
-
-  }  
-
-?>
+     $sql = mysqli_query($GLOBALS['___mysqli_ston'], 'SELECT * FROM ghost_settings');
+     while ($row = mysqli_fetch_array($sql)) {
+         $dayssms = $row['dayssms'];
+         $maxsmstime = $row['maxsmstime'];
+         $passwordexptime = $row['passwordexptime'];
+         $smsuser = $row['smsuser'];
+         $smspass = $row['smspass'];
+         $smsno = $row['smsno'];
+         $mesaj = $row['mesaj'];
+         $apiurl = $row['apiurl'];
+     } ?>
  
 <!-- start content-outer -->
 <div id="content-outer">
@@ -82,7 +68,7 @@ $apiurl = $row["apiurl"];
 		
 			<tr>
 			<th valign="top">Şifre geçerlilik süresi:</th>
-			<td><input type="text" name="passwordexptime" value="<?=$passwordexptime;?>"  class="inp-form" />
+			<td><input type="text" name="passwordexptime" value="<?=$passwordexptime; ?>"  class="inp-form" />
 			  gün</td>
 			<td></td>
 		</tr>
@@ -91,26 +77,26 @@ $apiurl = $row["apiurl"];
 		
 					<tr>
 			<th valign="top">Kullanıcı Adı:</th>
-			<td><input type="text" name="smsuser" value="<?=$smsuser;?>"  class="inp-form" /></td>
+			<td><input type="text" name="smsuser" value="<?=$smsuser; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 						<tr>
 			<th valign="top">Şifre:</th>
-			<td><input type="text" name="smspass" value="<?=$smspass;?>"  class="inp-form" /></td>
+			<td><input type="text" name="smspass" value="<?=$smspass; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
 		
 <tr>
 			<th valign="top">Başlık(Onaylı Olması Gerekir.):</th>
-			<td><input type="text" name="smsno" value="<?=$smsno;?>"  class="inp-form" /></td>
+			<td><input type="text" name="smsno" value="<?=$smsno; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
 
 				<tr>
 			<th valign="top">API URL:</th>
-			<td><input type="text" name="apiurl" value="<?=$apiurl;?>"  class="inp-form" /></td>
+			<td><input type="text" name="apiurl" value="<?=$apiurl; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
@@ -190,25 +176,21 @@ $apiurl = $row["apiurl"];
 <div class="clear">&nbsp;</div>
     
 <?php
-require_once ("inc/footer.php");
-?>
+require_once 'inc/footer.php'; ?>
 						 
 	<?php
-	
-} if($id == "password"){
- 
-   ?>
+ }
+    if ($id == 'password') {
+        ?>
 <?php
 
-require_once ("inc/header.php");
+require_once 'inc/header.php';
 
-$sql = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM ghost_users"); 
-while($row=mysqli_fetch_array($sql)) {
-$username = $row["username"];
-$password = $row["password"];  
-  }  
-
-?>
+        $sql = mysqli_query($GLOBALS['___mysqli_ston'], 'SELECT * FROM ghost_users');
+        while ($row = mysqli_fetch_array($sql)) {
+            $username = $row['username'];
+            $password = $row['password'];
+        } ?>
  
 <!-- start content-outer -->
 <div id="content-outer">
@@ -242,7 +224,7 @@ $password = $row["password"];
 		<table border="0" cellpadding="0" cellspacing="0"  id="id-form">
 		<tr>
 			<th valign="top">Kullanıcı Adınız:</th>
-			<td><input type="text" name="username" value="<?=$username;?>" class="inp-form" /></td>
+			<td><input type="text" name="username" value="<?=$username; ?>" class="inp-form" /></td>
 			<td></td>
 		</tr>
 		
@@ -250,7 +232,7 @@ $password = $row["password"];
 		
 		<tr>
 			<th valign="top">Şifreniz:</th>
-			<td><input type="text" name="password" value="<?=$password;?>"  class="inp-form" /></td>
+			<td><input type="text" name="password" value="<?=$password; ?>"  class="inp-form" /></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -330,26 +312,18 @@ $password = $row["password"];
 
 <?php
 
-require_once ("inc/footer.php");
-?>	
+require_once 'inc/footer.php'; ?>	
 
      
      
      
      <?php
-	
-} if($id == "thanks"){
- 
-
- 
-
-               ?>
+    }
+    if ($id == 'thanks') {
+        ?>
 	<?php
 
-require_once ("inc/header.php");
-
-
-?>
+require_once 'inc/header.php'; ?>
  
 <!-- start content-outer -->
 <div id="content-outer">
@@ -455,14 +429,13 @@ require_once ("inc/header.php");
 <div class="clear">&nbsp;</div>
     
 <?php
-require_once ("inc/footer.php");
-?>
+require_once 'inc/footer.php'; ?>
 
 
 
 
 		   <?php
-                        }
-                        }
-                    
+    }
+}
+
 ?>
