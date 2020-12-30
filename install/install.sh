@@ -140,6 +140,13 @@ AddPkg() {
     echo ${L_OK} 1>&3
 }
 
+GetPkgUrl() {
+    pkgname=$1
+    pkginfo=$(grep "\"name\":\"$pkgname\"" packagesite.yaml)
+    pkgvers=$(echo $pkginfo | pcregrep -o1 '"version":"(.*?)"' | head -1)
+    echo "/usr/sbin/pkg add -f ${FREEBSD_PACKAGE_URL}${pkgname}-${pkgvers}.txz" 1>&3
+}
+
 _installPackages() {
 
     echo ${L_INSTALLPACKAGES} 1>&3
@@ -165,6 +172,14 @@ _installPackages() {
         AddPkg p5-GSSAPI
         AddPkg p5-Authen-SASL
         AddPkg p5-HTML-Tagset
+        AddPkg p5-Clone
+        AddPkg p5-Encode-Locale
+        AddPkg p5-TimeDate
+        AddPkg p5-HTTP-Date
+        AddPkg p5-IO-HTML
+        AddPkg p5-LWP-MediaTypes
+        AddPkg p5-URI
+        AddPkg p5-HTTP-Message
         AddPkg p5-HTML-Parser
         AddPkg p5-CGI
         AddPkg p5-Error
@@ -367,6 +382,9 @@ _clean() {
     rm -rf /usr/local/qhotspot/install/qhotspot.sql*
     rm -rf /usr/local/qhotspot/install/qhotspot.sh*
     rm -rf /usr/local/qhotspot/install/qhotspotconfig.php
+    echo "If MySQL service not running after restart please use following command on root ssh session :" 1>&3
+    GetPkgUrl mysql56-client
+    GetPkgUrl mysql56-server
 }
 
 YesOrNo() {
