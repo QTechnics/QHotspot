@@ -198,8 +198,10 @@ _installPackages() {
         AddPkg bash
         AddPkg bash-completion
         AddPkg p11-kit
+        AddPkg gmp
         AddPkg tpm-emulator
         AddPkg trousers
+        AddPkg nettle
         AddPkg gnutls
         AddPkg libgpg-error
         AddPkg libassuan
@@ -207,6 +209,7 @@ _installPackages() {
         AddPkg libksba
         AddPkg npth
         AddPkg pinentry-tty
+        AddPkg pinentry-curses
         AddPkg pinentry
         AddPkg gnupg
         AddPkg subversion
@@ -227,11 +230,13 @@ _installPackages() {
         AddPkg png
         AddPkg libslang2
         AddPkg libssh2
+        AddPkg libsigsegv
+        AddPkg diffutils
         AddPkg mc
         AddPkg lsof
         AddPkg htop
-        AddPkg mysql56-client
-        AddPkg mysql56-server
+        AddPkg mysql57-client
+        AddPkg mysql57-server
 
         ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
         if [ ${ARCH} == "amd64" ]; then
@@ -244,9 +249,9 @@ _installPackages() {
             AddPkg compat8x-i386
         fi
 
-        AddPkg php72-mysqli
-        AddPkg php72-pdo_mysql
-        AddPkg php72-soap
+        AddPkg php74-mysqli
+        AddPkg php74-pdo_mysql
+        AddPkg php74-soap
 
         hash -r
 
@@ -383,8 +388,8 @@ _clean() {
     rm -rf /usr/local/qhotspot/install/qhotspot.sh*
     rm -rf /usr/local/qhotspot/install/qhotspotconfig.php
     echo "If MySQL service not running after restart please use following command on root ssh session :" 1>&3
-    GetPkgUrl mysql56-client
-    GetPkgUrl mysql56-server
+    GetPkgUrl mysql57-client
+    GetPkgUrl mysql57-server
 }
 
 YesOrNo() {
