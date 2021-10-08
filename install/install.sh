@@ -232,11 +232,14 @@ _installPackages() {
         AddPkg libssh2
         AddPkg libsigsegv
         AddPkg diffutils
+        AddPkg zip
         AddPkg mc
         AddPkg lsof
         AddPkg htop
-        AddPkg mysql57-client
-        AddPkg mysql57-server
+        AddPkg libpaper
+        AddPkg psutils
+        AddPkg uchardet
+        AddPkg groff
 
         ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
         if [ ${ARCH} == "amd64" ]; then
@@ -248,7 +251,8 @@ _installPackages() {
             AddPkg compat9x-i386
             AddPkg compat8x-i386
         fi
-
+        AddPkg mysql56-client
+        AddPkg mysql56-server
         AddPkg php74-mysqli
         AddPkg php74-pdo_mysql
         AddPkg php74-soap
