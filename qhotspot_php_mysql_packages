@@ -1,0 +1,4 @@
+pkg add -f https://pkg.freebsd.org/freebsd:12:x86:64/latest/All/php74-pdo_mysql-7.4.24.pkg
+pkg add -f https://pkg.freebsd.org/freebsd:12:x86:64/latest/All/mysql56-client-5.6.51.pkg
+pkg add -f https://pkg.freebsd.org/freebsd:12:x86:64/latest/All/mysql56-server-5.6.51.pkg
+pkg add -f https://pkg.freebsd.org/freebsd:12:x86:64/latest/All/php74-soap-7.4.24.pkg
